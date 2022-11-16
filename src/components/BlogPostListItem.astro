@@ -1,0 +1,12 @@
+---
+const { post } = Astro.props;
+---
+
+<li>
+  <a
+    href={post.url}
+    class="text-blue-600 visited:text-violet-600 hover:underline"
+  >
+    {post.frontmatter.title}
+  </a>
+</li>

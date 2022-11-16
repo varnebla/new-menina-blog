@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostListItem from '../../components/BlogPostListItem.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob('../../pages/posts/*.md');
+  return [
+    { params: { topic: 'arte' }, props: { posts: allPosts } },
+    { params: { topic: 'viajes' }, props: { posts: allPosts } },
+    { params: { topic: 'disney' }, props: { posts: allPosts } }
+  ];
+}
+
+const { topic } = Astro.params;
+const { posts } = Astro.props;
+const filteredPosts = posts.filter((post) => post.frontmatter.topic === topic);
+---
+
+<BaseLayout pageTitle={topic}>
+  <h2>This are {topic} posts</h2>
+  {filteredPosts.map((post) => <BlogPostListItem post={post} />)}
+</BaseLayout>
