@@ -4,20 +4,34 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout>
-  <h1>{frontmatter.title}</h1>
-  <p>Written by {frontmatter.author}</p>
-  <p>{frontmatter.pubDate.slice(0, 10)}</p>
-  {
-    frontmatter.tags.map((tag) => (
-      <li>
-        <a
-          class="text-blue-600 visited:text-violet-600 hover:underline"
-          href={`/tag/${tag}`}
-        >
-          {tag}
-        </a>
-      </li>
-    ))
-  }
-  <slot />
+  <section class="max-w-3xl mx-auto">
+    <article class="flex flex-col gap-y-6 mb-6">
+      <!-- <img src={frontmatter.image.url} alt="" class="h-64 object-cover" /> -->
+      <div class="flex flex-col gap-y-4">
+        <h1 class="font-dm-serif text-5xl">{frontmatter.title}</h1>
+        <time datetime={frontmatter.pubDate} class="text-gray-500"
+          >{frontmatter.pubDate.slice(0, 10)}
+        </time>
+        <ul class="flex gap-x-2 p-0">
+          {
+            frontmatter.tags.map((tag) => (
+              <li class="list-none">
+                <a
+                  class="text-white bg-secondary rounded-full px-3 py-1 hover:bg-opacity-90 no-underline"
+                  href={`/tag/${tag}`}
+                >
+                  #{tag}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </article>
+    <article
+      class="prose lg:prose-lg max-w-none prose-headings:font-dm-serif prose-img:max-w-md prose-img:mx-auto prose-img:w-full"
+    >
+      <slot />
+    </article>
+  </section>
 </BaseLayout>
