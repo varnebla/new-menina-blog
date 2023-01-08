@@ -1,12 +1,13 @@
 ---
-layout: '../../layouts/PostLayout.astro'
 title: Covadonga histórica, espiritual y natural
-description: 'Un lugar mágico envuelto en un entorno natural puro. '
-pubDate: 2020-12-02T17:25:37.215Z
-image:
-  url: https://res.cloudinary.com/varnebla/image/upload/v1623952175/IMG20201014111036_uwvzes.jpg
-tags: ['Asturias', 'turismo']
+description: "Un lugar mágico envuelto en un entorno natural puro. "
+layout: ../../layouts/PostLayout.astro
+releaseDate: 2023-01-07T20:24:35.316Z
+thumbnail: /public/images/black-cat.jpeg
 topic: viajes
+tags:
+  - Asturias
+  - turismo
 ---
 
 En mi anterior publicación os conté todo lo que hicimos durante nuestro primer

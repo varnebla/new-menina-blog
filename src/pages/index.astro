@@ -1,8 +1,39 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const allPosts = await Astro.glob('../pages/posts/*.md');
+const firstPostInfo = allPosts[0];
+console.log(allPosts);
+const lastPostsInfo = allPosts.slice(1, 4);
 ---
 
 <BaseLayout pageTitle="La menina perdida">
-  <h2>El mejor blog de arte</h2>
+  <h2>Último post</h2>
+  <section class="w-full flex gap-4">
+    <img
+      src={firstPostInfo.frontmatter.thumbnail}
+      alt=""
+      class="w-1/2 rounded"
+    />
+    <div class="flex flex-col gap-4">
+      <h3 class="text-4xl font-bold font-dm-serif">
+        {firstPostInfo.frontmatter.title}
+      </h3>
+      <p>{firstPostInfo.frontmatter.description}</p>
+      <a href={firstPostInfo.url}>Saber más</a>
+    </div>
+  </section>
+  <h2>También te puede interesar...</h2>
+  <section class="flex gap-2">
+    {
+      lastPostsInfo.map((post) => (
+        <div>
+          <h3 class="text-xl font-bold font-dm-serif">
+            {post.frontmatter.title}
+          </h3>
+          <p>{post.frontmatter.description}</p>
+        </div>
+      ))
+    }
+  </section>
   <a href="/blog">Ver todos los posts</a>
 </BaseLayout>

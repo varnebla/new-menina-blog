@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogPostListItem from '../components/BlogPostListItem.astro';
 const allPosts = await Astro.glob('../pages/posts/*.md');
+console.log(allPosts);
 ---
 
 <BaseLayout pageTitle="Posts">
