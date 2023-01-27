@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import PostDate from '../components/PostDate.astro';
 const { frontmatter } = Astro.props;
 ---
 
@@ -11,32 +12,14 @@ const { frontmatter } = Astro.props;
         <h1 class="font-dm-serif text-[72px] leading-none">
           {frontmatter.title}
         </h1>
-        <div class="flex gap-1 text-gray-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-            ></path>
-          </svg>
-          <time datetime={frontmatter.releaseDate}>
-            {frontmatter.releaseDate.slice(0, 10)}
-          </time>
-        </div>
+        <PostDate date={frontmatter.releaseDate} />
       </div>
       <ul class="flex gap-x-2 p-0">
         {
           frontmatter.tags.map((tag) => (
             <li class="list-none">
               <a
-                class="text-white bg-secondary rounded-full px-3 py-1 hover:bg-opacity-90 no-underline flex items-center"
+                class="bg-secondary/25 rounded px-3 py-1 hover:scale-105 transition-transform duration-150 ease-in-out no-underline flex items-center text-black"
                 href={`/tag/${tag}`}
               >
                 {tag}

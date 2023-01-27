@@ -1,0 +1,8 @@
+---
+import BlogPostListItem from './BlogPostListItem.astro';
+const { postList } = Astro.props;
+---
+
+<section class="max-w-xl mx-auto w-full flex flex-col gap-y-8">
+  {postList.map((post) => <BlogPostListItem post={post} />)}
+</section>

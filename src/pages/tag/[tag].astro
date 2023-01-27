@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogPostListItem from '../../components/BlogPostListItem.astro';
+import BlogPostList from '../../components/BlogPostList.astro';
 
 export async function getStaticPaths() {
   const allPosts = await Astro.glob('../../pages/posts/*.md');
@@ -26,5 +26,5 @@ const { posts } = Astro.props;
 
 <BaseLayout pageTitle={tag}>
   <h2>This are {tag} posts</h2>
-  {posts.map((post) => <BlogPostListItem post={post} />)}
+  <BlogPostList postList={posts} />
 </BaseLayout>

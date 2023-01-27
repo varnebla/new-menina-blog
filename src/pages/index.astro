@@ -1,89 +1,55 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BackgroundBlob from '../components/BackgroundBlob.astro';
+import BlogPostListItem from '../components/BlogPostListItem.astro';
 
 const allPosts = await Astro.glob('../pages/posts/*.md');
 const firstPostInfo = allPosts[0];
-console.log(allPosts);
+console.log(allPosts.map((el) => el.frontmatter));
 const lastPostsInfo = allPosts.slice(1, 4);
 ---
 
 <BaseLayout pageTitle="La menina perdida">
-  <!-- <BackgroundBlob /> -->
-  <section class="flex flex-col justify-center items-center py-32 gap-y-16">
-    <h1 class="text-[96px] font-dm-serif">La menina perdida</h1>
+  <section
+    class="flex flex-col justify-center items-center py-12 lg:py-32 gap-y-16"
+  >
+    <h1 class="text-[96px] leading-none font-dm-serif">La menina perdida</h1>
     <h2 class="text-3xl max-w-2xl tracking-wide leading-tight z-10">
       Para que veas el arte con otros ojos
     </h2>
   </section>
-  <section class="flex flex-col gap-y-4">
-    <article class="w-full flex gap-8 pt-4">
+  <section class="flex flex-col lg:flex-row w-full lg:justify-between gap-y-8">
+    <article class="flex flex-col gap-y-4 w-full lg:w-7/12">
       <img
         src={firstPostInfo.frontmatter.thumbnail}
         alt=""
-        class="w-2/3 rounded"
+        class="w-full rounded"
       />
-      <div class="flex flex-col gap-6 px-4 justify-start">
-        <h3 class="text-5xl font-bold font-dm-serif text-primary">
-          {firstPostInfo.frontmatter.title}
-        </h3>
-        <p class="text-lg">{firstPostInfo.frontmatter.description}</p>
+      <BlogPostListItem post={firstPostInfo} titleClass="text-5xl" />
+    </article>
+    <article class="flex flex-col w-full lg:w-1/3 gap-y-8">
+      {lastPostsInfo.map((post) => <BlogPostListItem post={post} />)}
+    </article>
+  </section>
+  <section class="flex justify-center w-full mb-16">
+    <a
+      href="/blog"
+      class="rounded border-2 border-black w-max hover:scale-105 transition-transform duration-150 ease-in-out p-3 flex items-center gap-x-1"
+    >
+      <span>Ver todos los posts</span>
 
-        <a
-          href={firstPostInfo.url}
-          class="flex items-center gap-x-1 border-2 border-primary rounded w-fit px-3 py-2"
-        >
-          <span>Ir al post</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
-          </svg>
-        </a>
-      </div>
-    </article>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+      </svg>
+    </a>
   </section>
-  <section class="flex flex-col gap-4">
-    <article class="grid grid-cols-3 grid-flow-col auto-rows-max gap-8">
-      {
-        lastPostsInfo.map((post) => (
-          <div class="flex-1 flex flex-col gap-2 pt-4 h-full">
-            <h3 class="text-2xl font-bold font-dm-serif h-full">
-              {post.frontmatter.title}
-            </h3>
-            <p class="h-full">{post.frontmatter.description}</p>
-            <a
-              href={post.url}
-              class="flex items-center gap-x-1 border-2 border-primary rounded w-fit px-3 py-2"
-            >
-              <span>Ir al post</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                />
-              </svg>
-            </a>
-          </div>
-        ))
-      }
-    </article>
-  </section>
-  <a href="/blog">Ver todos los posts</a>
 </BaseLayout>
