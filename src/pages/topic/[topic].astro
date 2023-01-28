@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostList from '../../components/BlogPostList.astro';
+import BlogPostEmpty from '../../components/BlogPostEmpty.astro';
 
 export async function getStaticPaths() {
   const allPosts = await Astro.glob('../../pages/posts/*.md');
@@ -17,6 +18,11 @@ const filteredPosts = posts.filter((post) => post.frontmatter.topic === topic);
 ---
 
 <BaseLayout pageTitle={topic}>
-  <h2>This are {topic} posts</h2>
-  <BlogPostList postList={filteredPosts} />
+  {
+    !filteredPosts || !filteredPosts.length ? (
+      <BlogPostEmpty />
+    ) : (
+      <BlogPostList postList={filteredPosts} />
+    )
+  }
 </BaseLayout>
