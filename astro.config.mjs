@@ -11,8 +11,10 @@ export default defineConfig({
     NetlifyCMS({
       config: {
         backend: {
-          name: 'git-gateway',
-          branch: 'master'
+          name: 'github',
+          // branch: 'master'
+          repo: 'varnebla/new-menina',
+          base_url: 'www.lameninaperdida.art'
         },
         media_folder: '/public/images',
         collections: [
