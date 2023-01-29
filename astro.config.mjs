@@ -14,7 +14,8 @@ export default defineConfig({
           name: 'github',
           // branch: 'master'
           repo: 'varnebla/new-menina',
-          base_url: 'www.lameninaperdida.art'
+          base_url: 'https://www.lameninaperdida.art',
+          auth_endpoint: 'api/auth'
         },
         media_folder: '/public/images',
         collections: [
