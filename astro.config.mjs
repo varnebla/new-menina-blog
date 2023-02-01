@@ -13,7 +13,7 @@ export default defineConfig({
         backend: {
           name: 'git-gateway'
         },
-        media_folder: '/public/images',
+        media_folder: '/images',
         collections: [
           {
             name: 'posts',
