@@ -1,4 +1,4 @@
-<div class="inline lg:hidden hamburguer">
+<button id="openSideMenuButton" class="inline lg:hidden hamburguer">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -15,4 +15,15 @@
       x2="20"
       y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line>
   </svg>
-</div>
+</button>
+
+<script>
+  const openSideMenuButton = document.querySelector('#openSideMenuButton');
+  const sideMenu = document.querySelector('#sideMenu') as HTMLElement;
+  const bodyContainer = document.querySelector('body') as HTMLElement;
+
+  openSideMenuButton.addEventListener('click', () => {
+    sideMenu.style.display = 'flex';
+    bodyContainer.style.overflowY = 'hidden';
+  });
+</script>

@@ -1,0 +1,25 @@
+<button id="closeSideMenuButton" class="absolute right-0 top-0 mx-4 my-6">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-6 h-6"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M6 18L18 6M6 6l12 12"></path>
+  </svg>
+</button>
+<script>
+  const closeButton = document.querySelector('#closeSideMenuButton');
+  const sideMenu = document.querySelector('#sideMenu') as HTMLElement;
+  const bodyContainer = document.querySelector('body') as HTMLElement;
+
+  closeButton.addEventListener('click', () => {
+    sideMenu.style.display = 'none';
+    bodyContainer.style.overflowY = null;
+  });
+</script>

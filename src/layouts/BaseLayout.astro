@@ -1,6 +1,7 @@
 ---
 import TheNavigationBar from '../components/TheNavigationBar.astro';
 import TheFooter from '../components/TheFooter.astro';
+import SideMenu from '../components/SideMenu.astro';
 
 const { pageTitle } = Astro.props;
 ---
@@ -19,6 +20,7 @@ const { pageTitle } = Astro.props;
       <!-- <h1 class="text-4xl font-dm-serif font-bold">{pageTitle}</h1> -->
       <slot />
     </main>
+    <SideMenu />
     <TheFooter />
     <script>
       import '../scripts/menu';
