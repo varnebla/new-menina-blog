@@ -2,12 +2,22 @@
 import HamburguerIcon from './HamburguerIcon.astro';
 ---
 
-<header class="px-4 py-6 max-w-6xl mx-auto w-full flex justify-between">
-  <a href="/" class="text-lg font-bold">La menina perdida</a>
-  <nav class="gap-x-6 hidden lg:flex">
-    <a href="/topic/arte" class="hover:underline">Arte</a>
-    <a href="/topic/viajes" class="hover:underline">Viajes</a>
-    <a href="/topic/disney" class="hover:underline">Disney</a>
-  </nav>
-  <HamburguerIcon />
+<header
+  id="navigationBar"
+  class="fixed top-0 left-0 right-0 transition-shadow transition-color duration-200 bg-background"
+>
+  <div class="px-4 py-6 max-w-6xl mx-auto w-full flex justify-between">
+    <a
+      id="navigationBarTitle"
+      href="/"
+      class="text-lg font-bold transition-opacity duration-200"
+      >La menina perdida</a
+    >
+    <nav class="gap-x-6 hidden lg:flex">
+      <a href="/topic/arte" class="hover:underline">Arte</a>
+      <a href="/topic/viajes" class="hover:underline">Viajes</a>
+      <a href="/topic/disney" class="hover:underline">Disney</a>
+    </nav>
+    <HamburguerIcon />
+  </div>
 </header>

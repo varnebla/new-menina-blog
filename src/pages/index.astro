@@ -12,8 +12,10 @@ const lastPostsInfo = allPosts?.slice(1, 4);
   <section
     class="flex flex-col justify-center items-center py-12 lg:py-32 gap-y-16"
   >
-    <h1 class="text-[96px] leading-none font-dm-serif">La menina perdida</h1>
-    <h2 class="text-3xl max-w-2xl tracking-wide leading-tight z-10">
+    <h1 class="text-[96px] leading-none font-dm-serif" page-title>
+      La menina perdida
+    </h1>
+    <h2 class="text-3xl max-w-2xl tracking-wide leading-tight">
       Para que veas el arte con otros ojos
     </h2>
   </section>
@@ -61,3 +63,29 @@ const lastPostsInfo = allPosts?.slice(1, 4);
     </a>
   </section>
 </BaseLayout>
+
+<script>
+  const navigationBar = document.querySelector('#navigationBar');
+  const navigationBarTitle = document.querySelector(
+    '#navigationBarTitle'
+  ) as HTMLElement;
+  const pageTitle = document.querySelector('[page-title]');
+  const observerOptions = {
+    root: null,
+    rootMargin: '-76px',
+    threshold: 0
+  };
+  const observerCallback = (entries, observer) => {
+    entries.forEach((entry) => console.log(entry));
+    if (entries[0].isIntersecting == false) {
+      navigationBarTitle.style.opacity = '100%';
+      navigationBar.classList.add('shadow-md');
+    } else {
+      navigationBarTitle.style.opacity = '0%';
+      navigationBar.classList.remove('shadow-md');
+    }
+    // console.log(entries[0].isIntersecting, observer, 'hola que tal');
+  };
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  observer.observe(pageTitle);
+</script>
