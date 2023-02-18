@@ -4,7 +4,7 @@ description: Coco es una de las películas de Disney más queridas por el públi
   Hoy vamos a detenernos en sus detalles, secretos y curiosidades.
 layout: ../../layouts/PostLayout.astro
 releaseDate: 2023-01-07T19:55:30.482Z
-thumbnail: /images/black-cat.jpeg
+thumbnail: /images/pedro_infante_y_jorge_negrete.webp
 topic: disney
 tags:
   - cine
