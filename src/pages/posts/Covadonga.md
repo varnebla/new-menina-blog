@@ -2,8 +2,8 @@
 title: Covadonga histórica, espiritual y natural
 description: "Un lugar mágico envuelto en un entorno natural puro. "
 layout: ../../layouts/PostLayout.astro
-releaseDate: 2023-01-07T20:24:35.316Z
-thumbnail: /public/images/black-cat.jpeg
+releaseDate: 2020-11-22T20:24:35.316Z
+thumbnail: /images/img20201014111119.jpg
 topic: viajes
 tags:
   - Asturias
