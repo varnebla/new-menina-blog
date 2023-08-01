@@ -52,7 +52,8 @@ Detalle de La Campanona ©Fotografía propia
 
 ## Prosiguiendo el viaje...
 
-Tras una breve visita a la tienda, al lado de la cual hay un proyector que está continuamente transmitiendo un reportaje de la historia del lugar (de donde saqué mucha información para elaborar este artículo), nos fuimos a nuestro siguiente destino. Digamos que el día fue muy productivo ya que empezó en **Covadonga**, siguió hacia la **playa de Celorio,** con breve parada para comer, y acabamos en **San Vicente de la Barquera**, por aquello de hacer la broma de ir a visitar a Bustamante. Más allá del chiste os recomiendo la visita, porque echas perfectamente la tarde y es un pueblo muy bonito. De vuelta a la casa rural decidimos aprovechar el parón de lluvia para visitar la [Playa de Gulpiyuri](https://www.lameninaperdida.art/blog/playa-de-gulpiyuri/), pero entonces empezó a llover y la visita tuvo que ser muy breve. Os cuento curiosidades de esta pequeña playa en otro artículo. Y para rematar el completo día, fuimos a cenar a una pizzería de Villaviciosa que se llama La Trigona, muy recomendable.
-¡Hasta el próximo viaje!
+Tras una breve visita a la tienda, al lado de la cual hay un proyector que está continuamente transmitiendo un reportaje de la historia del lugar (de donde saqué mucha información para elaborar este artículo), nos fuimos a nuestro siguiente destino. Digamos que el día fue muy productivo ya que empezó en **Covadonga**, siguió hacia la **playa de Celorio,** con breve parada para comer, y acabamos en **San Vicente de la Barquera**, por aquello de hacer la broma de ir a visitar a Bustamante. Y nos lo encontramos:
 
-- - -
+![David Bustamante en una tienda de San Vicente de la Barquera](/images/img20201014180655.jpg "David Bustamante en una tienda de San Vicente de la Barquera")
+
+Más allá del chiste, os recomiendo la visita, porque echas perfectamente la tarde y es un pueblo muy bonito. De vuelta a la casa rural decidimos aprovechar el parón de lluvia para visitar la **Playa de Gulpiyuri**, pero entonces empezó a llover y la visita tuvo que ser muy breve. Os cuento curiosidades de esta pequeña playa en otro artículo.  Y para rematar el completo día, fuimos a cenar a una pizzería de Villaviciosa que se llama La Trigona, muy recomendable.
