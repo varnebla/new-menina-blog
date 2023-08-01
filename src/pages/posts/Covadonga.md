@@ -9,8 +9,7 @@ tags:
   - Asturias
   - turismo
 ---
-En mi anterior publicación os conté todo lo que hicimos durante nuestro primer día en Asturias, concretamente en
-[Ribadesella](https://www.lameninaperdida.art/blog/ribadesella/). El segundo día lo destinamos a hacer un tour en Jeep que acababa con senderismo por la Ruta del Cares. La experiencia de esta ruta guiada, unida al "momento crisis" que vivimos, os lo cuento [en este artículo](https://lameninaperdida.art/posts/la-ruta-del-cares-y-el-no-descubrimiento/).
+Seguimos con nuestra ruta por el norte. Ya os conté todo lo que hicimos durante nuestro primer día en Asturias, concretamente en [Ribadesella](https://www.lameninaperdida.art/blog/ribadesella/). Y cómo el segundo día lo destinamos a hacer un tour en Jeep que acababa con senderismo por la Ruta del Cares. La experiencia de esta ruta guiada, unida al "momento crisis" que vivimos, os lo cuento [en este artículo](https://lameninaperdida.art/posts/la-ruta-del-cares-y-el-no-descubrimiento/).
 
 Y hoy quiero hablaros de nuestra visita a Covadonga durante nuestro tercer día de vacaciones. Cuando me he puesto a organizar lo que os quería contar, me ha sorprendido a mi misma todos los sitios bonitos que visitamos ese día y la gran cantidad de kilómetros que sumamos. Lo que **empezó en Covadonga continuó por Celorio, y pasamos por San Vicente de la Barquera para acabar cenando en Villaviciosa.** Todos los destinos son muy recomendables, pero me centraré en nuestra visita a Covadonga.
 
