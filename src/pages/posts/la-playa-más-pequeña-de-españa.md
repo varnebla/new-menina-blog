@@ -11,13 +11,13 @@ tags:
 ---
 Cuando vas al norte de España, y concretamente a la zona norte de Asturias, tienes que visitar obligatoriamente sus playas. No importa que vayas en octubre y que ni te plantees el bañarte. Tienes que visitarlas por el simple hecho de contemplarlas.
 
-A lo largo de nuestro viaje, nosotros estuvimos paseando por Ribadesella, Cudillero y Celorio. También paramos por San Vicente de la Barquera. Todas las visitas a estas playas fueron con la única excusa de o**ler el mar y disfrutar de la vista**.
+A lo largo de nuestro viaje, nosotros estuvimos paseando por Ribadesella, Cudillero y Celorio. También paramos por San Vicente de la Barquera. Todas las visitas a estas playas fueron con la única excusa de **oler el mar y disfrutar de la vista**.
 
 ![Playa de Celorio](/images/img20201014153744.jpg "Playa de Celorio")
 
 Pero hoy no voy a hablaros de ninguno de estos pueblos, sino que os traigo la que seguramente sea una de las playas más especiales que puedas visitar: la **playa de Gulpiyuri**.
 
-## Cómo llegar a Gulpiyuri 
+## Cómo llegar a Gulpiyuri
 
 El tercer día de nuestro viaje a Asturias (que duró cinco) volvíamos de San Vicente de la Barquera y quisimos parar en una playa de la que habíamos leído recomendaciones: la **Playa de Gulpiyuri**. Aviso que no es un lugar nada accesible, y en parte me alegro, porque eso permite que siga siendo un espacio no masificado. La playa está a 13 km de Llanes, en el pueblo de Naves, y se llega por la Autovía del Cantábrico. Cuando sales de la autovía por la rotonda correspondiente, accedes a una carretera de tierra, por la que tienes que ir avanzando hasta que llegas a una especie de explanada (no demasiado grande) donde puedes aparcar.
 
