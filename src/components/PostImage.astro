@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+
+type Orientation = 'vertical' | 'horizontal';
+
+interface Props {
+  src: string;
+  alt: string;
+  orientation: Orientation;
+  caption: string;
+}
+
+const { src, alt, orientation = 'vertical', caption } = Astro.props;
+
+const { width, height } =
+  orientation == 'vertical'
+    ? { width: 450, height: 590 }
+    : { width: 590, height: 450 };
+---
+
+<figure>
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    class:list={[{ '!max-w-md': orientation == 'vertical' }]}
+  />
+  <figcaption class="block text-center">{caption}</figcaption>
+</figure>

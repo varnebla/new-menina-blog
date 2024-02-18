@@ -1,49 +1,37 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogPostListItem from '../components/BlogPostListItem.astro';
-import BlogPostEmpty from '../components/BlogPostEmpty.astro';
 
-const allPosts = await Astro.glob('../pages/posts/*.md');
-const firstPostInfo = allPosts[0];
-const lastPostsInfo = allPosts?.slice(1, 4);
+import { getPostsOrderedByDate } from '../services/posts';
+
+const posts = await getPostsOrderedByDate();
+const filteredPosts = posts.slice(0, 3);
 ---
 
 <BaseLayout pageTitle="La menina perdida">
-  <section
-    class="flex flex-col justify-center items-center py-12 lg:py-32 gap-y-16"
-  >
-    <h1 class="text-[96px] leading-none font-dm-serif" page-title>
-      La menina perdida
-    </h1>
-    <h2 class="text-3xl max-w-2xl tracking-wide leading-tight">
-      Para que veas el arte con otros ojos
+  <section class="flex flex-col justify-center py-12 lg:py-32 gap-y-16">
+    <h2
+      class="text-4xl max-w-md leading-tight font-serif [text-wrap]:[balance] tracking-tight text-pearl-900"
+    >
+      La menina perdida es mi proyecto personal. Para que veas el <span
+        class="text-gold-700">arte</span
+      > con otros ojos
     </h2>
   </section>
-  {
-    !firstPostInfo || !lastPostsInfo || !lastPostsInfo.length ? (
-      <BlogPostEmpty />
-    ) : (
-      <section class="flex flex-col lg:flex-row w-full lg:justify-between gap-y-8">
-        <article class="flex flex-col gap-y-4 w-full lg:w-7/12">
-          <img
-            src={firstPostInfo.frontmatter.thumbnail}
-            alt=""
-            class="w-full rounded"
-          />
-          <BlogPostListItem post={firstPostInfo} titleClass="text-5xl" />
-        </article>
-        <article class="flex flex-col w-full lg:w-1/3 gap-y-8">
-          {lastPostsInfo.map((post) => (
-            <BlogPostListItem post={post} />
-          ))}
-        </article>
-      </section>
-    )
-  }
-  <section class="flex justify-center w-full">
+  <section
+    class="flex flex-col w-full border-b border-t border-slate-300 py-6 gap-y-8"
+  >
+    <h2 class="text-2xl lg:text-3xl font-bold text-pearl-900">Últimos posts</h2>
+    <article class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {
+        filteredPosts.map((post) => {
+          return <BlogPostListItem post={post} />;
+        })
+      }
+    </article>
     <a
-      href="/blog"
-      class="rounded border-2 border-black w-max hover:scale-105 transition-transform duration-150 ease-in-out p-3 flex items-center gap-x-1"
+      href="/posts"
+      class="rounded w-max transition-color duration-150 ease-in-out px-3 py-2 flex items-center gap-x-2 bg-pearl-900 text-white text-sm self-center hover:bg-opacity-90"
     >
       <span>Ver todos los posts</span>
 
@@ -53,7 +41,7 @@ const lastPostsInfo = allPosts?.slice(1, 4);
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-6 h-6"
+        class="w-4 h-4"
       >
         <path
           stroke-linecap="round"
@@ -64,28 +52,4 @@ const lastPostsInfo = allPosts?.slice(1, 4);
   </section>
 </BaseLayout>
 
-<script>
-  const navigationBar = document.querySelector('#navigationBar');
-  const navigationBarTitle = document.querySelector(
-    '#navigationBarTitle'
-  ) as HTMLElement;
-  const pageTitle = document.querySelector('[page-title]');
-  const observerOptions = {
-    root: null,
-    rootMargin: '-76px',
-    threshold: 0
-  };
-  const observerCallback = (entries, observer) => {
-    entries.forEach((entry) => console.log(entry));
-    if (entries[0].isIntersecting == false) {
-      navigationBarTitle.style.opacity = '100%';
-      navigationBar.classList.add('shadow-md');
-    } else {
-      navigationBarTitle.style.opacity = '0%';
-      navigationBar.classList.remove('shadow-md');
-    }
-    // console.log(entries[0].isIntersecting, observer, 'hola que tal');
-  };
-  const observer = new IntersectionObserver(observerCallback, observerOptions);
-  observer.observe(pageTitle);
-</script>
+<script></script>

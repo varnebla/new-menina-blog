@@ -1,28 +1,38 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogPostList from '../../components/BlogPostList.astro';
+import BlogPostListItem from '../../components/BlogPostListItem.astro';
 import BlogPostEmpty from '../../components/BlogPostEmpty.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob('../../pages/posts/*.md');
+  const entries = await getCollection('posts');
   return [
-    { params: { topic: 'arte' }, props: { posts: allPosts } },
-    { params: { topic: 'viajes' }, props: { posts: allPosts } },
-    { params: { topic: 'disney' }, props: { posts: allPosts } }
+    { params: { topic: 'arte' }, props: { posts: entries } },
+    { params: { topic: 'viajes' }, props: { posts: entries } },
+    { params: { topic: 'disney' }, props: { posts: entries } }
   ];
 }
 
 const { topic } = Astro.params;
 const { posts } = Astro.props;
-const filteredPosts = posts.filter((post) => post.frontmatter.topic === topic);
+const filteredPosts = posts.filter((post) => {
+  return post.data.topic === topic;
+});
 ---
 
-<BaseLayout pageTitle={topic}>
-  {
-    !filteredPosts || !filteredPosts.length ? (
-      <BlogPostEmpty />
-    ) : (
-      <BlogPostList postList={filteredPosts} />
-    )
-  }
+<BaseLayout>
+  <h1 class="text-2xl lg:text-4xl font-bold">Posts sobre {topic}</h1>
+  <section
+    class="max-w-lg lg:max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4"
+  >
+    {
+      !filteredPosts || !filteredPosts.length ? (
+        <BlogPostEmpty />
+      ) : (
+        filteredPosts.map((post) => {
+          return <BlogPostListItem post={post} />;
+        })
+      )
+    }
+  </section>
 </BaseLayout>

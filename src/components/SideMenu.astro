@@ -9,9 +9,7 @@ import TimesIcon from '../components/TimesIcon.astro';
 >
   <TimesIcon />
   <nav id="sideMenuLinksList" class="flex flex-col gap-y-6 font-bold text-lg">
-    <a href="/topic/arte" class="hover:underline">Arte</a>
-    <a href="/topic/viajes" class="hover:underline">Viajes</a>
-    <a href="/topic/disney" class="hover:underline">Disney</a>
+    <a href="/posts">Posts</a>
   </nav>
 </aside>
 
@@ -23,7 +21,7 @@ import TimesIcon from '../components/TimesIcon.astro';
   listOfLinks.forEach((link) =>
     link.addEventListener('click', () => {
       sideMenu.style.display = 'none';
-      bodyContainer.style.overflowY = null;
+      bodyContainer.style.overflowY = 'auto';
     })
   );
 </script>

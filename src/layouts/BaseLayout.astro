@@ -3,6 +3,12 @@ import TheNavigationBar from '../components/TheNavigationBar.astro';
 import TheFooter from '../components/TheFooter.astro';
 import SideMenu from '../components/SideMenu.astro';
 
+// Supports weights 400-700
+import '@fontsource-variable/lora';
+import '@fontsource/geist-sans/400.css';
+import '@fontsource/geist-sans/500.css';
+import '@fontsource/geist-sans/700.css';
+
 const { pageTitle } = Astro.props;
 ---
 
@@ -18,10 +24,8 @@ const { pageTitle } = Astro.props;
     class="flex flex-col min-h-screen text-lg font-dm-sans relative bg-background"
   >
     <TheNavigationBar />
-    <main
-      class="px-4 max-w-6xl mx-auto w-full flex flex-col gap-y-12 mb-16 mt-24"
-    >
-      <!-- <h1 class="text-4xl font-dm-serif font-bold">{pageTitle}</h1> -->
+    <main class="px-4 lg:px-0 max-w-4xl mx-auto w-full mb-16 mt-24">
+      <!-- <h1 class="text-4xl font-serif font-bold">{pageTitle}</h1> -->
       <slot />
     </main>
     <SideMenu />

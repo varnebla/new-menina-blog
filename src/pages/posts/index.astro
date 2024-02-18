@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostEmpty from '../../components/BlogPostEmpty.astro';
+import BlogPostListItem from '../../components/BlogPostListItem.astro';
+
+import { getPostsOrderedByDate } from '../../services/posts';
+
+const posts = await getPostsOrderedByDate();
+---
+
+<BaseLayout pageTitle="Posts">
+  <section
+    class="max-w-lg lg:max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4"
+  >
+    {
+      posts.map((post) => {
+        return <BlogPostListItem post={post} />;
+      })
+    }
+  </section>
+</BaseLayout>

@@ -1,8 +1,12 @@
 ---
 import BlogPostListItem from './BlogPostListItem.astro';
+import MainPost from './MainPost.astro';
 const { postList } = Astro.props;
+const mainPost = postList.shift();
 ---
 
 <section class="max-w-xl mx-auto w-full flex flex-col gap-y-8">
-  {postList.map((post) => <BlogPostListItem post={post} />)}
+  <MainPost post={mainPost}>
+    {postList.map((post) => <BlogPostListItem post={post} />)}
+  </MainPost>
 </section>

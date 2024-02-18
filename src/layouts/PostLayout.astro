@@ -1,36 +1,36 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import PostDate from '../components/PostDate.astro';
-const { frontmatter } = Astro.props;
+import { Image } from 'astro:assets';
+
+interface Props {
+  title: string;
+  date: string;
+  topic: string;
+  imagen: string;
+}
+const { title, date, topic, imagen } = Astro.props;
 ---
 
 <BaseLayout>
-  <section class="max-w-[70ch] mx-auto pt-24 mb-16">
-    <article class="flex flex-col gap-y-6 mb-6">
-      <!-- <img src={frontmatter.image.url} alt="" class="h-64 object-cover" /> -->
-      <div class="flex flex-col gap-y-4">
-        <h1 class="font-dm-serif text-[72px] leading-none">
-          {frontmatter.title}
-        </h1>
-        <PostDate date={frontmatter.releaseDate} />
-      </div>
-      <ul class="flex gap-x-2 p-0">
-        {
-          frontmatter.tags.map((tag) => (
-            <li class="list-none">
-              <a
-                class="bg-secondary/25 rounded px-3 py-1 hover:scale-105 transition-transform duration-150 ease-in-out no-underline flex items-center text-black"
-                href={`/tag/${tag}`}
-              >
-                {tag}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </article>
+  <section class="max-w-[60ch] mx-auto pt-4 mb-16">
+    <div class="flex flex-col gap-y-4 mb-6">
+      <a
+        href={`/topic/${topic}`}
+        class="text-sm w-max uppercase text-gold-700 hover:underline pl-1"
+        >{topic}</a
+      >
+      <h1 class="font-bold text-5xl text-pearl-900">{title}</h1>
+      <p class="text-sm text-pearl-700">{date}</p>
+      <Image
+        src={imagen}
+        alt={title}
+        width={680}
+        height={380}
+        class="aspect-video rounded"
+      />
+    </div>
     <article
-      class="prose lg:prose-lg max-w-none prose-headings:font-dm-serif prose-img:max-w-md prose-img:mx-auto prose-img:w-full"
+      class="prose prose-pearl prose-base lg:prose-lg font-serif max-w-none prose-headings:font-dm-sans prose-headings:font-bold prose-img:max-w-lg prose-img:mx-auto prose-img:rounded prose-img:w-full [&_strong]:font-bold [&_img+em]:text-center [&_img+em]:block [&_a]:underline"
     >
       <slot />
     </article>

@@ -1,28 +1,47 @@
 ---
-import PostDate from './PostDate.astro';
-const { post, titleClass } = Astro.props;
+import { Image } from 'astro:assets';
+
+interface Props {
+  post: {
+    data: {
+      title: string;
+      imagen: string;
+      fecha: string;
+      topic: string;
+    };
+    slug: string;
+  };
+}
+
+const { post } = Astro.props;
 ---
 
-<div class="flex flex-col gap-y-2">
-  <a
-    href={`/topic/${post.frontmatter.topic}`}
-    class="text-secondary capitalize hover:underline"
-    >{post.frontmatter.topic}
-  </a>
-  <a href={post.url} class="group flex flex-col gap-y-2">
-    <p
-      class:list={[
-        'font-dm-serif text-3xl group-hover:underline leading-tight',
-        titleClass
-      ]}
-    >
-      {post.frontmatter.title}
+<a
+  href={`/posts/${post.slug}`}
+  class="flex flex-col gap-y-4 justify-start w-full group overflow-hidden"
+>
+  <div class="w-full aspect-video overflow-hidden rounded">
+    <Image
+      src={post.data.imagen}
+      alt={post.data.title}
+      width={200}
+      height={100}
+      class="w-full object-cover aspect-video group-hover:scale-[1.025] transition-transform duration-300 ease-in rounded overflow-hidden"
+    />
+  </div>
+  <div class="flex flex-col gap-y-2 w-full justify-center">
+    <p class="text-sm w-max uppercase text-gold-700 pl-1">
+      {post.data.topic}
     </p>
-    <p>{post.frontmatter.description}</p>
-    {
-      post.frontmatter.releaseDate && (
-        <PostDate date={post.frontmatter.releaseDate} />
-      )
-    }
-  </a>
-</div>
+    <div class="group flex flex-col gap-y-2">
+      <p
+        class:list={[
+          'font-bold text-2xl leading-tight group-hover:underline text-pearl-900'
+        ]}
+      >
+        {post.data.title}
+      </p>
+      <p class="text-sm text-pearl-700">{post.data.fecha}</p>
+    </div>
+  </div>
+</a>
