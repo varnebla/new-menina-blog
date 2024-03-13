@@ -190,21 +190,42 @@ declare module 'astro:content' {
   slug: "8-curiosidades-sobre-coco";
   body: string;
   collection: "posts";
-  data: InferEntrySchema<"posts">
+  data: any
 } & { render(): Render[".mdx"] };
-"ahora.mdx": {
-	id: "ahora.mdx";
-  slug: "ahora";
+"covadonga-historica.mdx": {
+	id: "covadonga-historica.mdx";
+  slug: "covadonga-historica";
   body: string;
   collection: "posts";
-  data: InferEntrySchema<"posts">
+  data: any
 } & { render(): Render[".mdx"] };
-"covadonga-historica copy.mdx": {
-	id: "covadonga-historica copy.mdx";
-  slug: "covadonga-historica-copy";
+"la-playa-mas-pequena-de-espana.mdx": {
+	id: "la-playa-mas-pequena-de-espana.mdx";
+  slug: "la-playa-mas-pequena-de-espana";
   body: string;
   collection: "posts";
-  data: InferEntrySchema<"posts">
+  data: any
+} & { render(): Render[".mdx"] };
+"la-tragedia-del-naufragio.mdx": {
+	id: "la-tragedia-del-naufragio.mdx";
+  slug: "la-tragedia-del-naufragio";
+  body: string;
+  collection: "posts";
+  data: any
+} & { render(): Render[".mdx"] };
+"ribadesella.mdx": {
+	id: "ribadesella.mdx";
+  slug: "ribadesella";
+  body: string;
+  collection: "posts";
+  data: any
+} & { render(): Render[".mdx"] };
+"ruta-del-cares.mdx": {
+	id: "ruta-del-cares.mdx";
+  slug: "ruta-del-cares";
+  body: string;
+  collection: "posts";
+  data: any
 } & { render(): Render[".mdx"] };
 };
 
@@ -216,5 +237,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	type ContentConfig = typeof import("../src/content/config");
+	type ContentConfig = never;
 }
