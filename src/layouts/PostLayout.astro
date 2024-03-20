@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import { Image } from 'astro:assets';
+import { formatDate } from '../utils/date';
 
 interface Props {
   title: string;
@@ -9,6 +10,8 @@ interface Props {
   imagen: string;
 }
 const { title, date, topic, imagen } = Astro.props;
+
+const formatedDate = formatDate(date);
 ---
 
 <BaseLayout>
@@ -20,7 +23,7 @@ const { title, date, topic, imagen } = Astro.props;
         >{topic}</a
       >
       <h1 class="font-bold text-5xl text-pearl-900">{title}</h1>
-      <p class="text-sm text-pearl-700">{date}</p>
+      <p class="text-sm text-pearl-700">{formatedDate}</p>
       <Image
         src={imagen}
         alt={title}

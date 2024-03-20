@@ -185,6 +185,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"posts": {
+"10-personajes-celebres-mexicanos.mdx": {
+	id: "10-personajes-celebres-mexicanos.mdx";
+  slug: "10-personajes-celebres-mexicanos";
+  body: string;
+  collection: "posts";
+  data: any
+} & { render(): Render[".mdx"] };
 "8-curiosidades-sobre-coco.mdx": {
 	id: "8-curiosidades-sobre-coco.mdx";
   slug: "8-curiosidades-sobre-coco";
@@ -202,6 +209,13 @@ declare module 'astro:content' {
 "la-playa-mas-pequena-de-espana.mdx": {
 	id: "la-playa-mas-pequena-de-espana.mdx";
   slug: "la-playa-mas-pequena-de-espana";
+  body: string;
+  collection: "posts";
+  data: any
+} & { render(): Render[".mdx"] };
+"la-sensualidad-del-vuelo.mdx": {
+	id: "la-sensualidad-del-vuelo.mdx";
+  slug: "la-sensualidad-del-vuelo";
   body: string;
   collection: "posts";
   data: any

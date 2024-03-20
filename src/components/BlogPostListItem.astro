@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { formatDate } from '../utils/date';
 
 interface Props {
   post: {
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const { post } = Astro.props;
+
+const formatedDate = formatDate(post.data.fecha);
 ---
 
 <a
@@ -41,7 +44,7 @@ const { post } = Astro.props;
       >
         {post.data.title}
       </p>
-      <p class="text-sm text-pearl-700">{post.data.fecha}</p>
+      <p class="text-sm text-pearl-700">{formatedDate}</p>
     </div>
   </div>
 </a>

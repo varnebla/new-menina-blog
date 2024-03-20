@@ -22,7 +22,7 @@ const filteredPosts = posts.slice(0, 3);
     class="flex flex-col w-full border-b border-t border-slate-300 py-6 gap-y-8"
   >
     <h2 class="text-2xl lg:text-3xl font-bold text-pearl-900">Últimos posts</h2>
-    <article class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <article class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {
         filteredPosts.map((post) => {
           return <BlogPostListItem post={post} />;
