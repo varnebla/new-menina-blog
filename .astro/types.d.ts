@@ -190,56 +190,56 @@ declare module 'astro:content' {
   slug: "10-personajes-celebres-mexicanos";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "8-curiosidades-sobre-coco.mdx": {
 	id: "8-curiosidades-sobre-coco.mdx";
   slug: "8-curiosidades-sobre-coco";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "covadonga-historica.mdx": {
 	id: "covadonga-historica.mdx";
   slug: "covadonga-historica";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "la-playa-mas-pequena-de-espana.mdx": {
 	id: "la-playa-mas-pequena-de-espana.mdx";
   slug: "la-playa-mas-pequena-de-espana";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "la-sensualidad-del-vuelo.mdx": {
 	id: "la-sensualidad-del-vuelo.mdx";
   slug: "la-sensualidad-del-vuelo";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "la-tragedia-del-naufragio.mdx": {
 	id: "la-tragedia-del-naufragio.mdx";
   slug: "la-tragedia-del-naufragio";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "ribadesella.mdx": {
 	id: "ribadesella.mdx";
   slug: "ribadesella";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "ruta-del-cares.mdx": {
 	id: "ruta-del-cares.mdx";
   slug: "ruta-del-cares";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 };
 
@@ -251,5 +251,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	type ContentConfig = never;
+	type ContentConfig = typeof import("../src/content/config");
 }
