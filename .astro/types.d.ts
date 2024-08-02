@@ -227,6 +227,20 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"mayo-1808-en-madrid.mdx": {
+	id: "mayo-1808-en-madrid.mdx";
+  slug: "mayo-1808-en-madrid";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"paisajes-sublimes-y-personas-de-espaldas.mdx": {
+	id: "paisajes-sublimes-y-personas-de-espaldas.mdx";
+  slug: "paisajes-sublimes-y-personas-de-espaldas";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "ribadesella.mdx": {
 	id: "ribadesella.mdx";
   slug: "ribadesella";
