@@ -8,15 +8,19 @@ const posts = await getPostsOrderedByDate();
 const filteredPosts = posts.slice(0, 3);
 ---
 
-<BaseLayout pageTitle="La menina perdida">
-  <section class="flex flex-col justify-center py-12 lg:py-32 gap-y-16">
-    <h2
-      class="text-4xl max-w-md leading-tight font-serif [text-wrap]:[balance] tracking-tight text-pearl-900"
-    >
-      La menina perdida es mi proyecto personal. Para que veas el <span
-        class="text-gold-700">arte</span
+<BaseLayout
+  pageTitle="Página de inicio"
+  pageDescription="La menina perdida es un proyecto artístico único que te invita a ver el arte desde una nueva perspectiva. Explora paisajes sublimes, retratos evocadores y obras maestras. Mantente al día con las últimas publicaciones y sumérgete en un mundo de creatividad y belleza visual."
+>
+  <section
+    class="py-12 lg:py-32 gap-y-16 text-4xl max-w-md leading-tight font-serif [text-wrap]:[balance] tracking-tight text-pearl-900"
+  >
+    <h1 class="inline">La menina perdida</h1>
+    <p class="inline">
+      es mi proyecto personal. Para que veas el <span class="text-gold-700"
+        >arte</span
       > con otros ojos
-    </h2>
+    </p>
   </section>
   <section
     class="flex flex-col w-full border-b border-t border-slate-300 py-6 gap-y-8"

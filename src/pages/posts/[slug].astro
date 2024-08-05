@@ -6,9 +6,9 @@ export async function getStaticPaths() {
   const entries = await getCollection('posts');
   return entries.map((entry) => ({
     params: {
-      slug: entry.slug
+      slug: entry.slug,
     },
-    props: { entry }
+    props: { entry },
   }));
 }
 
@@ -21,6 +21,7 @@ const { Content } = await entry.render();
   date={entry.data.fecha}
   topic={entry.data.topic}
   imagen={entry.data.imagen}
+  pageDescription={entry.data.abstract}
 >
   <Content />
 </PostLayout>

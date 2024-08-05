@@ -9,16 +9,17 @@ import '@fontsource/geist-sans/400.css';
 import '@fontsource/geist-sans/500.css';
 import '@fontsource/geist-sans/700.css';
 
-const { pageTitle } = Astro.props;
+const { pageTitle, pageDescription } = Astro.props;
 ---
 
-<html lang="en" class="min-h-screen">
+<html lang="es-ES" class="min-h-screen">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <title>{pageTitle} | La menina perdida</title>
   </head>
   <body
     class="flex flex-col min-h-screen text-lg font-dm-sans relative bg-background"

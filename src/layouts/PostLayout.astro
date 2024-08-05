@@ -8,13 +8,14 @@ interface Props {
   date: string;
   topic: string;
   imagen: string;
+  pageDescription: string;
 }
-const { title, date, topic, imagen } = Astro.props;
+const { title, date, topic, imagen, pageDescription } = Astro.props;
 
 const formatedDate = formatDate(date);
 ---
 
-<BaseLayout>
+<BaseLayout pageTitle={title} pageDescription={pageDescription}>
   <section class="max-w-[60ch] mx-auto pt-4 mb-16">
     <div class="flex flex-col gap-y-4 mb-6">
       <a
