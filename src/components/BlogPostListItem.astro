@@ -21,12 +21,14 @@ const formatedDate = formatDate(post.data.fecha);
 
 <a
   href={`/posts/${post.slug}`}
+  title={`Ir al post de ${post.data.title}`}
   class="flex flex-col gap-y-4 justify-start w-full group overflow-hidden"
 >
   <div class="w-full aspect-video overflow-hidden rounded">
     <Image
       src={post.data.imagen}
       alt={post.data.title}
+      title={post.data.title}
       width={200}
       height={100}
       class="w-full object-cover aspect-video group-hover:scale-[1.025] transition-transform duration-300 ease-in rounded overflow-hidden"
@@ -39,7 +41,7 @@ const formatedDate = formatDate(post.data.fecha);
     <div class="group flex flex-col gap-y-2">
       <p
         class:list={[
-          'font-bold text-2xl leading-tight group-hover:underline text-pearl-900'
+          'font-bold text-2xl leading-tight group-hover:underline text-pearl-900',
         ]}
       >
         {post.data.title}

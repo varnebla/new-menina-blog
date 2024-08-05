@@ -20,6 +20,7 @@ const formatedDate = formatDate(date);
     <div class="flex flex-col gap-y-4 mb-6">
       <a
         href={`/topic/${topic}`}
+        title={`Ir a los posts de ${topic}`}
         class="text-sm w-max uppercase text-gold-700 hover:underline pl-1"
         >{topic}</a
       >
@@ -28,6 +29,7 @@ const formatedDate = formatDate(date);
       <Image
         src={imagen}
         alt={title}
+        title={title}
         width={720}
         height={380}
         class="aspect-video rounded object-cover"

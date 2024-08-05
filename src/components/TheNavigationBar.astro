@@ -10,11 +10,14 @@ import HamburguerIcon from './HamburguerIcon.astro';
     <a
       id="navigationBarTitle"
       href="/"
+      title="Ir a la página principal"
       class="text-lg font-bold transition-opacity duration-200"
       >La menina perdida</a
     >
     <nav class="gap-x-6 hidden lg:flex">
-      <a href="/posts" class="hover:underline">Posts</a>
+      <a href="/posts" title="Ir a todos los posts" class="hover:underline"
+        >Posts</a
+      >
     </nav>
     <HamburguerIcon />
   </div>
