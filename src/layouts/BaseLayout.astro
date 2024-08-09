@@ -56,6 +56,20 @@ const { pageTitle, pageDescription } = Astro.props;
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 
     <title>{pageTitle} | La menina perdida</title>
+    <script>
+      function loadScript(a) {
+        var b = document.getElementsByTagName('head')[0],
+          c = document.createElement('script');
+        (c.type = 'text/javascript'),
+          (c.src = 'https://tracker.metricool.com/resources/be.js'),
+          (c.onreadystatechange = a),
+          (c.onload = a),
+          b.appendChild(c);
+      }
+      loadScript(function () {
+        beTracker.t({ hash: 'a933f382943051f1da937ef2f0571001' });
+      });
+    </script>
   </head>
   <body
     class="flex flex-col min-h-screen text-lg font-dm-sans relative bg-background"
