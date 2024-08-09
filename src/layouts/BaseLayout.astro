@@ -12,13 +12,49 @@ import '@fontsource/geist-sans/700.css';
 const { pageTitle, pageDescription } = Astro.props;
 ---
 
-<html lang="es-ES" class="min-h-screen">
+<html lang="es" class="min-h-screen">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={pageDescription} />
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://lameninaperdida.art" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Para que veas el arte con otros ojos | La menina perdida"
+    />
+    <meta
+      property="og:description"
+      content="Espacio donde descubrimos secretos y curiosidades tras las obras de arte, curiosidades y objetos artísticos escondidos en las películas Disney y os hablo de mis viajes y de mis experiencias en visitas culturales. Proyecto que llevo a cabo con el objetivo de hacer el arte accesible a todos los públicos mediante un lenguaje comprensible. Muestro las obras de arte desde el punto de vista de las curiosidades y leyendas que encierran. Verás el arte con otros ojos."
+    />
+    <meta
+      property="og:image"
+      content="https://opengraph.b-cdn.net/production/images/8330f603-c8b4-4c61-bdf6-b2c4cd5a4704.jpg?token=YDl5emfgT4wpKezqhvlW747glLR2qjQvXUCXxQ1LdG4&height=1449&width=1200&expires=33259224249"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="lameninaperdida.art" />
+    <meta property="twitter:url" content="https://lameninaperdida.art" />
+    <meta
+      name="twitter:title"
+      content="Para que veas el arte con otros ojos | La menina perdida"
+    />
+    <meta
+      name="twitter:description"
+      content="Espacio donde descubrimos secretos y curiosidades tras las obras de arte, curiosidades y objetos artísticos escondidos en las películas Disney y os hablo de mis viajes y de mis experiencias en visitas culturales. Proyecto que llevo a cabo con el objetivo de hacer el arte accesible a todos los públicos mediante un lenguaje comprensible. Muestro las obras de arte desde el punto de vista de las curiosidades y leyendas que encierran. Verás el arte con otros ojos."
+    />
+    <meta
+      name="twitter:image"
+      content="https://opengraph.b-cdn.net/production/images/8330f603-c8b4-4c61-bdf6-b2c4cd5a4704.jpg?token=YDl5emfgT4wpKezqhvlW747glLR2qjQvXUCXxQ1LdG4&height=1449&width=1200&expires=33259224249"
+    />
+
+    <!-- Meta Tags Generated via https://www.opengraph.xyz -->
+
     <title>{pageTitle} | La menina perdida</title>
   </head>
   <body
