@@ -1,7 +1,7 @@
 ---
 import TheNavigationBar from '../components/TheNavigationBar.astro';
 import TheFooter from '../components/TheFooter.astro';
-import SideMenu from '../components/SideMenu.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 // Supports weights 400-700
 import '@fontsource-variable/lora';
@@ -70,6 +70,7 @@ const { pageTitle, pageDescription } = Astro.props;
         beTracker.t({ hash: 'a933f382943051f1da937ef2f0571001' });
       });
     </script>
+    <ViewTransitions />
   </head>
   <body
     class="flex flex-col min-h-screen text-lg font-dm-sans relative bg-background"
@@ -79,7 +80,6 @@ const { pageTitle, pageDescription } = Astro.props;
       <!-- <h1 class="text-4xl font-serif font-bold">{pageTitle}</h1> -->
       <slot />
     </main>
-    <SideMenu />
     <TheFooter />
   </body>
 </html>

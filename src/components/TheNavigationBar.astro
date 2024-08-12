@@ -1,24 +1,165 @@
 ---
-import HamburguerIcon from './HamburguerIcon.astro';
+
 ---
 
 <header
   id="navigationBar"
   class="fixed top-0 left-0 right-0 backdrop-blur bg-opacity-75 bg-background z-10 shadow-sm text-pearl-900"
+  transition:persist
 >
-  <div class="px-4 lg:px-0 py-6 max-w-4xl mx-auto w-full flex justify-between">
+  <div
+    class="px-4 lg:px-0 max-w-4xl mx-auto w-full flex items-center justify-between"
+  >
     <a
       id="navigationBarTitle"
       href="/"
       title="Ir a la página principal"
-      class="text-lg font-bold transition-opacity duration-200"
+      class="text-lg font-bold transition-opacity duration-200 py-6"
       >La menina perdida</a
     >
-    <nav class="gap-x-6 hidden lg:flex">
-      <a href="/posts" title="Ir a todos los posts" class="hover:underline"
-        >Posts</a
+    <nav class="text-base gap-x-6 hidden lg:flex relative">
+      <button
+        id="show-dropdown-btn"
+        title="Ir a todos los posts"
+        class="hover:backdrop-brightness-90 px-4 py-1 rounded-full flex items-center gap-x-1"
       >
+        <span>Posts</span>
+        <svg
+          class="w-4 h-4"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 9-7 7-7-7"></path>
+        </svg>
+      </button>
+      <div
+        id="desktop-navigation"
+        class="w-32 absolute top-[60px] bg-background z-20 rounded border border-pearl-300 shadow-md"
+        style="display: none;"
+      >
+        <nav class="flex flex-col text-base font-medium">
+          <a href="/topic/arte" class="py-3 px-4 hover:backdrop-brightness-90"
+            >Arte</a
+          >
+          <a href="/topic/disney" class="py-3 px-4 hover:backdrop-brightness-90"
+            >Disney</a
+          >
+          <a href="/topic/viajes" class="py-3 px-4 hover:backdrop-brightness-90"
+            >Viajes</a
+          >
+        </nav>
+      </div>
     </nav>
-    <HamburguerIcon />
+    <button id="open-mobile-navigation-btn" class="inline lg:hidden hamburguer">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><line x1="4" y1="12" x2="20" y2="12"></line><line
+          x1="4"
+          y1="6"
+          x2="20"
+          y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line>
+      </svg>
+    </button>
+    <button
+      id="close-mobile-navigation-btn"
+      style="display: none;"
+      class="absolute right-0 top-0 mx-4 my-6"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <div
+    id="mobile-navigation"
+    class="px-4 pt-2 pb-4 w-full animate-fade-in-down"
+    style="display:none"
+  >
+    <nav class="flex flex-col gap-y-6 text-lg font-medium">
+      <a href="/topic/arte">Arte</a>
+      <a href="/topic/disney">Disney</a>
+      <a href="/topic/viajes">Viajes</a>
+    </nav>
   </div>
 </header>
+
+<script>
+  const mobileNavigation = document.querySelector(
+    '#mobile-navigation'
+  ) as HTMLElement;
+  const desktopNavigation = document.querySelector(
+    '#desktop-navigation'
+  ) as HTMLElement;
+  const closeButton = document.querySelector(
+    '#close-mobile-navigation-btn'
+  ) as HTMLElement;
+  const openSideMenuButton = document.querySelector(
+    '#open-mobile-navigation-btn'
+  ) as HTMLElement;
+  const seeAllPostsButton = document.querySelector(
+    '#show-dropdown-btn'
+  ) as HTMLElement;
+
+  openSideMenuButton.addEventListener('click', () => {
+    openSideMenuButton.style.display = 'none';
+    closeButton.style.display = 'inline-block';
+    mobileNavigation.style.display = 'flex';
+  });
+
+  closeButton.addEventListener('click', () => {
+    closeButton.style.display = 'none';
+    openSideMenuButton.style.display = 'block';
+    mobileNavigation.style.display = 'none';
+  });
+
+  seeAllPostsButton.addEventListener('click', () => {
+    if (desktopNavigation.style.display === 'none')
+      desktopNavigation.style.display = 'block';
+    else desktopNavigation.style.display = 'none';
+  });
+
+  document.addEventListener('astro:before-swap', (ev) => {
+    // Pass the incoming document to set the theme on it
+    desktopNavigation.style.display = 'none';
+    mobileNavigation.style.display = 'none';
+  });
+
+  const desktopMediaQuery = window.matchMedia('(min-width: 1024px)');
+
+  desktopMediaQuery.addEventListener('change', (event) => {
+    if (event.matches) {
+      mobileNavigation.style.display = 'none';
+      closeButton.style.display = 'none';
+      openSideMenuButton.removeAttribute('style');
+    } else {
+      desktopNavigation.style.display = 'none';
+    }
+  });
+</script>

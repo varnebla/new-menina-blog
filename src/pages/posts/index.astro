@@ -10,7 +10,7 @@ const posts = await getPostsOrderedByDate();
 <BaseLayout pageTitle="Todos los posts">
   <h1 class="text-2xl lg:text-4xl font-bold mb-6">Todos los posts</h1>
   <section
-    class="max-w-lg lg:max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4"
+    class="max-w-lg lg:max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-16 gap-x-8 lg:gap-y-12 pt-4"
   >
     {
       posts.map((post) => {
