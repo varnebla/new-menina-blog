@@ -133,7 +133,11 @@
     mobileNavigation.style.display = 'flex';
   });
 
-  closeButton.addEventListener('click', closeMobileNavigation);
+  closeButton.addEventListener('click', () => {
+    closeButton.style.display = 'none';
+    openSideMenuButton.style.display = 'block';
+    mobileNavigation.style.display = 'none';
+  });
 
   seeAllPostsButton.addEventListener('click', () => {
     if (desktopNavigation.style.display === 'none')
@@ -141,9 +145,12 @@
     else desktopNavigation.style.display = 'none';
   });
 
-  document.addEventListener('astro:before-swap', () => {
+  document.addEventListener('astro:before-swap', (ev) => {
+    // Pass the incoming document to set the theme on it
     desktopNavigation.style.display = 'none';
-    closeMobileNavigation();
+    mobileNavigation.style.display = 'none';
+    closeButton.style.display = 'none';
+    openSideMenuButton.removeAttribute('style');
   });
 
   const desktopMediaQuery = window.matchMedia('(min-width: 1024px)');
@@ -157,10 +164,4 @@
       desktopNavigation.style.display = 'none';
     }
   });
-
-  function closeMobileNavigation() {
-    closeButton.style.display = 'none';
-    openSideMenuButton.style.display = 'block';
-    mobileNavigation.style.display = 'none';
-  }
 </script>
