@@ -66,9 +66,11 @@ const { pageTitle, pageDescription } = Astro.props;
           (c.onload = a),
           b.appendChild(c);
       }
-      loadScript(function () {
-        beTracker.t({ hash: 'a933f382943051f1da937ef2f0571001' });
-      });
+      if (import.meta.env.PROD) {
+        loadScript(function () {
+          beTracker.t({ hash: 'a933f382943051f1da937ef2f0571001' });
+        });
+      }
     </script>
     <ViewTransitions />
   </head>
