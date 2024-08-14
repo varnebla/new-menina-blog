@@ -1,0 +1,80 @@
+---
+interface Props {
+  activeTab: string;
+}
+const { activeTab } = Astro.props;
+---
+
+<div class="mb-4 border-b border-pearl-200">
+  <ul
+    class="flex flex-wrap -mb-px text-sm font-medium text-center"
+    id="default-tab"
+    data-tabs-toggle="#default-tab-content"
+    role="tablist"
+  >
+    <li class="me-2" role="presentation">
+      <a
+        class="inline-block p-4 pl-0 rounded-t-lg hover:text-pearl-700"
+        id="all-tab"
+        href="/posts"
+        class:list={[
+          activeTab == 'all'
+            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
+            : '',
+        ]}
+        data-tabs-target="#all"
+        role="tab"
+        aria-controls="all"
+        aria-selected={activeTab == 'all'}>Todos los posts</a
+      >
+    </li>
+    <li class="me-2" role="presentation">
+      <a
+        class="inline-block p-4 rounded-t-lg hover:text-pearl-700"
+        id="arte-tab"
+        href="/topic/arte"
+        class:list={[
+          activeTab == 'arte'
+            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
+            : '',
+        ]}
+        data-tabs-target="#arte"
+        role="tab"
+        aria-controls="arte"
+        aria-selected={activeTab == 'arte'}>Arte</a
+      >
+    </li>
+    <li class="me-2" role="presentation">
+      <a
+        class="inline-block p-4 rounded-t-lg hover:text-pearl-700"
+        id="disney-tab"
+        href="/topic/disney"
+        class:list={[
+          activeTab == 'disney'
+            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
+            : '',
+        ]}
+        data-tabs-target="#disney"
+        role="tab"
+        aria-controls="disney"
+        aria-selected={activeTab == 'disney'}>Disney</a
+      >
+    </li>
+    <li role="presentation">
+      <a
+        class="inline-block p-4 rounded-t-lg hover:text-pearl-700"
+        id="viajes-tab"
+        href="/topic/viajes"
+        class:list={[
+          activeTab == 'viajes'
+            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
+            : '',
+        ]}
+        data-tabs-target="#viajes"
+        role="tab"
+        aria-controls="viajes"
+        aria-selected={activeTab == 'viajes'}>Viajes</a
+      >
+    </li>
+  </ul>
+</div>

@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import ListLayout from '../../layouts/ListLayout.astro';
 import BlogPostListItem from '../../components/BlogPostListItem.astro';
 
 import { getPostsOrderedByDate } from '../../services/posts';
@@ -7,8 +7,7 @@ import { getPostsOrderedByDate } from '../../services/posts';
 const posts = await getPostsOrderedByDate();
 ---
 
-<BaseLayout pageTitle="Todos los posts">
-  <h1 class="text-2xl lg:text-4xl font-bold mb-6">Todos los posts</h1>
+<ListLayout title="Todos los posts" topic="all">
   <section
     class="max-w-lg lg:max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-16 gap-x-8 lg:gap-y-12 pt-4"
   >
@@ -18,4 +17,4 @@ const posts = await getPostsOrderedByDate();
       })
     }
   </section>
-</BaseLayout>
+</ListLayout>

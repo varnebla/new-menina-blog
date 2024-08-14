@@ -1,0 +1,17 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TopicTabs from '../components/TopicTabs.astro';
+
+interface Props {
+  title: string;
+  topic: string;
+  pageDescription?: string;
+}
+const { title, topic, pageDescription } = Astro.props;
+---
+
+<BaseLayout pageTitle={title}>
+  <h1 class="text-2xl lg:text-4xl font-bold mb-6">{title}</h1>
+  <TopicTabs activeTab={topic} />
+  <slot />
+</BaseLayout>
