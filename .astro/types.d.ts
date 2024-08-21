@@ -199,6 +199,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"calumnia-de-apeles.mdx": {
+	id: "calumnia-de-apeles.mdx";
+  slug: "calumnia-de-apeles";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "covadonga-historica.mdx": {
 	id: "covadonga-historica.mdx";
   slug: "covadonga-historica";
