@@ -227,6 +227,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"la-sirenita-george-delatour.mdx": {
+	id: "la-sirenita-george-delatour.mdx";
+  slug: "la-sirenita-george-delatour";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "la-tragedia-del-naufragio.mdx": {
 	id: "la-tragedia-del-naufragio.mdx";
   slug: "la-tragedia-del-naufragio";
