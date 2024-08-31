@@ -22,14 +22,16 @@ const filteredPosts = posts.filter((post) => {
 
 <ListLayout title={`Posts sobre ${topic}`} topic={topic}>
   <section
+    id={`${topic}-posts`}
     class="max-w-lg lg:max-w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4"
   >
     {
       !filteredPosts || !filteredPosts.length ? (
         <BlogPostEmpty />
       ) : (
-        filteredPosts.map((post) => {
-          return <BlogPostListItem post={post} />;
+        filteredPosts.map((post, index) => {
+          const isEagerImg = index < 2;
+          return <BlogPostListItem post={post} isEagerImg={isEagerImg} />;
         })
       )
     }

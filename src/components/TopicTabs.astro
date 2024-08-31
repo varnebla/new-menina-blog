@@ -24,7 +24,7 @@ const { activeTab } = Astro.props;
         ]}
         data-tabs-target="#all"
         role="tab"
-        aria-controls="all"
+        aria-controls="all-posts"
         aria-selected={activeTab == 'all'}>Todos los posts</a
       >
     </li>
@@ -40,7 +40,7 @@ const { activeTab } = Astro.props;
         ]}
         data-tabs-target="#arte"
         role="tab"
-        aria-controls="arte"
+        aria-controls="arte-posts"
         aria-selected={activeTab == 'arte'}>Arte</a
       >
     </li>
@@ -56,7 +56,7 @@ const { activeTab } = Astro.props;
         ]}
         data-tabs-target="#disney"
         role="tab"
-        aria-controls="disney"
+        aria-controls="disney-posts"
         aria-selected={activeTab == 'disney'}>Disney</a
       >
     </li>
@@ -72,7 +72,7 @@ const { activeTab } = Astro.props;
         ]}
         data-tabs-target="#viajes"
         role="tab"
-        aria-controls="viajes"
+        aria-controls="viajes-posts"
         aria-selected={activeTab == 'viajes'}>Viajes</a
       >
     </li>
