@@ -269,6 +269,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"vermer-hitler-y-la-astronomia.mdx": {
+	id: "vermer-hitler-y-la-astronomia.mdx";
+  slug: "vermer-hitler-y-la-astronomia";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 };
 
 	};
