@@ -2,10 +2,10 @@
 import ListLayout from '../../layouts/ListLayout.astro';
 import BlogPostListItem from '../../components/BlogPostListItem.astro';
 import BlogPostEmpty from '../../components/BlogPostEmpty.astro';
-import { getCollection } from 'astro:content';
+import { getPostsOrderedByDate } from '../../services/posts';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('posts');
+  const entries = await getPostsOrderedByDate();
   return [
     { params: { topic: 'arte' }, props: { posts: entries } },
     { params: { topic: 'viajes' }, props: { posts: entries } },
