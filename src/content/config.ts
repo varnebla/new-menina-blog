@@ -9,7 +9,7 @@ const postCollection = defineCollection({
     imagen: z.string(),
     topic: z.string(),
     tags:z.array(z.string()),
-    fecha: z.string(),
+    fecha: z.date(),
   })
 })
 

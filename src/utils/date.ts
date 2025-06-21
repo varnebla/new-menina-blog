@@ -1,9 +1,9 @@
-export function formatDate(postDate: string): string {
+export function formatDate(postDate: Date): string {
   const dateFormat = new Intl.DateTimeFormat('es-ES', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
 });
 
-  return dateFormat.format(new Date(postDate));
+  return dateFormat.format(postDate);
 }
