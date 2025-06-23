@@ -14,5 +14,7 @@ export default new Map([
 ["src/content/posts-temp/paisajes-sublimes-y-personas-de-espaldas.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts-temp%2Fpaisajes-sublimes-y-personas-de-espaldas.mdx&astroContentModuleFlag=true")],
 ["src/content/posts-temp/ruta-del-cares.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts-temp%2Fruta-del-cares.mdx&astroContentModuleFlag=true")],
 ["src/content/posts-temp/vermer-hitler-y-la-astronomia.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts-temp%2Fvermer-hitler-y-la-astronomia.mdx&astroContentModuleFlag=true")],
-["src/content/posts/calumnia-de-apeles.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fcalumnia-de-apeles.mdx&astroContentModuleFlag=true")]]);
+["src/content/posts/calumnia-de-apeles.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fcalumnia-de-apeles.mdx&astroContentModuleFlag=true")],
+["src/content/posts/covadonga-historica.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fcovadonga-historica.mdx&astroContentModuleFlag=true")],
+["src/content/posts/ribadesella.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fribadesella.mdx&astroContentModuleFlag=true")]]);
 		
