@@ -19,5 +19,6 @@ export default new Map([
 ["src/content/posts/ribadesella.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fribadesella.mdx&astroContentModuleFlag=true")],
 ["src/content/posts/la-playa-mas-pequena-de-espana.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fla-playa-mas-pequena-de-espana.mdx&astroContentModuleFlag=true")],
 ["src/content/posts/ruta-del-cares.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fruta-del-cares.mdx&astroContentModuleFlag=true")],
-["src/content/posts/la-tragedia-del-naufragio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fla-tragedia-del-naufragio.mdx&astroContentModuleFlag=true")]]);
+["src/content/posts/la-tragedia-del-naufragio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fla-tragedia-del-naufragio.mdx&astroContentModuleFlag=true")],
+["src/content/posts/la-sirenita-george-delatour.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fla-sirenita-george-delatour.mdx&astroContentModuleFlag=true")]]);
 		
