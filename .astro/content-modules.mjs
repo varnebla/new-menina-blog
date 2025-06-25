@@ -23,5 +23,6 @@ export default new Map([
 ["src/content/posts/la-sirenita-george-delatour.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fla-sirenita-george-delatour.mdx&astroContentModuleFlag=true")],
 ["src/content/posts/la-sensualidad-del-vuelo.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fla-sensualidad-del-vuelo.mdx&astroContentModuleFlag=true")],
 ["src/content/posts/paisajes-sublimes-y-personas-de-espaldas.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fpaisajes-sublimes-y-personas-de-espaldas.mdx&astroContentModuleFlag=true")],
-["src/content/posts/mayo-1808-en-madrid.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fmayo-1808-en-madrid.mdx&astroContentModuleFlag=true")]]);
+["src/content/posts/mayo-1808-en-madrid.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fmayo-1808-en-madrid.mdx&astroContentModuleFlag=true")],
+["src/content/posts/jardin-de-las-delicias.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fjardin-de-las-delicias.mdx&astroContentModuleFlag=true")]]);
 		
