@@ -18,46 +18,11 @@
       >La menina perdida</a
     >
     <nav class="text-base gap-x-6 hidden lg:flex relative">
-      <button
-        id="show-dropdown-btn"
-        title="Ir a todos los posts"
+      <a
+        href="/posts"
         class="hover:backdrop-brightness-90 px-4 py-1 rounded-full flex items-center gap-x-1"
+        >Posts</a
       >
-        <span>Posts</span>
-        <svg
-          class="w-4 h-4"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m19 9-7 7-7-7"></path>
-        </svg>
-      </button>
-      <div
-        id="desktop-navigation"
-        class="w-32 absolute top-[60px] bg-background z-20 rounded border border-pearl-300 shadow-md"
-        style="display: none;"
-      >
-        <nav class="flex flex-col text-base font-medium">
-          <a href="/topic/arte" class="py-3 px-4 hover:backdrop-brightness-90"
-            >Arte</a
-          >
-          <a href="/topic/disney" class="py-3 px-4 hover:backdrop-brightness-90"
-            >Disney</a
-          >
-          <a href="/topic/viajes" class="py-3 px-4 hover:backdrop-brightness-90"
-            >Viajes</a
-          >
-        </nav>
-      </div>
     </nav>
     <button
       id="open-mobile-navigation-btn"
@@ -108,9 +73,7 @@
     style="display:none"
   >
     <nav class="flex flex-col gap-y-6 text-lg font-medium">
-      <a href="/topic/arte">Arte</a>
-      <a href="/topic/disney">Disney</a>
-      <a href="/topic/viajes">Viajes</a>
+      <a href="/posts">Posts</a>
     </nav>
   </div>
 </header>
@@ -128,9 +91,6 @@
   const openSideMenuButton = document.querySelector(
     '#open-mobile-navigation-btn'
   ) as HTMLElement;
-  const seeAllPostsButton = document.querySelector(
-    '#show-dropdown-btn'
-  ) as HTMLElement;
 
   openSideMenuButton.addEventListener('click', () => {
     openSideMenuButton.style.display = 'none';
@@ -142,12 +102,6 @@
     closeButton.style.display = 'none';
     openSideMenuButton.style.display = 'block';
     mobileNavigation.style.display = 'none';
-  });
-
-  seeAllPostsButton.addEventListener('click', () => {
-    if (desktopNavigation.style.display === 'none')
-      desktopNavigation.style.display = 'block';
-    else desktopNavigation.style.display = 'none';
   });
 
   document.addEventListener('astro:before-swap', (ev) => {
