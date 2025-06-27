@@ -1,7 +1,7 @@
 ---
 import TheNavigationBar from '../components/TheNavigationBar.astro';
 import TheFooter from '../components/TheFooter.astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 // Supports weights 400-700
 import '@fontsource-variable/lora';
@@ -64,7 +64,7 @@ const { pageTitle, pageDescription, layout = 'BaseLayout' } = Astro.props;
     <script>
       if (!import.meta.env.PROD) localStorage.setItem('umami.disabled', '1');
     </script>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body
     class="flex flex-col min-h-screen text-lg font-dm-sans relative bg-background"
