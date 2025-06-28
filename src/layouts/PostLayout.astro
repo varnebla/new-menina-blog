@@ -13,12 +13,20 @@ interface Props {
 const { title, date, topic, imagen, pageDescription } = Astro.props;
 
 const formatedDate = formatDate(date);
+
+// Construir URL completa de la imagen para SEO
+const fullImageUrl = imagen.startsWith('http')
+  ? imagen
+  : `https://lameninaperdida.art${imagen}`;
 ---
 
 <BaseLayout
   pageTitle={title}
   pageDescription={pageDescription}
   layout="PostLayout"
+  ogTitle={title}
+  ogDescription={pageDescription}
+  ogImage={fullImageUrl}
 >
   <section class="max-w-[60ch] mx-auto pt-4 mb-16">
     <div class="flex flex-col gap-y-4 mb-6">

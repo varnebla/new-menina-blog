@@ -9,7 +9,29 @@ import '@fontsource/geist-sans/400.css';
 import '@fontsource/geist-sans/500.css';
 import '@fontsource/geist-sans/700.css';
 
-const { pageTitle, pageDescription, layout = 'BaseLayout' } = Astro.props;
+const {
+  pageTitle,
+  pageDescription,
+  layout = 'BaseLayout',
+  ogImage,
+  ogTitle,
+  ogDescription,
+} = Astro.props;
+
+// Valores por defecto para SEO
+const defaultOgTitle =
+  'Para que veas el arte con otros ojos | La menina perdida';
+const defaultOgDescription =
+  'Espacio donde descubrimos secretos y curiosidades tras las obras de arte, curiosidades y objetos artísticos escondidos en las películas Disney y os hablo de mis viajes y de mis experiencias en visitas culturales. Proyecto que llevo a cabo con el objetivo de hacer el arte accesible a todos los públicos mediante un lenguaje comprensible.';
+const defaultOgImage =
+  'https://opengraph.b-cdn.net/production/images/8330f603-c8b4-4c61-bdf6-b2c4cd5a4704.jpg?token=YDl5emfgT4wpKezqhvlW747glLR2qjQvXUCXxQ1LdG4&height=1449&width=1200&expires=33259224249';
+
+// Usar valores dinámicos o fallbacks
+const finalOgTitle =
+  ogTitle || pageTitle ? `${pageTitle} | La menina perdida` : defaultOgTitle;
+const finalOgDescription =
+  ogDescription || pageDescription || defaultOgDescription;
+const finalOgImage = ogImage || defaultOgImage;
 ---
 
 <html lang="es" class="min-h-screen">
@@ -24,35 +46,17 @@ const { pageTitle, pageDescription, layout = 'BaseLayout' } = Astro.props;
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://lameninaperdida.art" />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Para que veas el arte con otros ojos | La menina perdida"
-    />
-    <meta
-      property="og:description"
-      content="Espacio donde descubrimos secretos y curiosidades tras las obras de arte, curiosidades y objetos artísticos escondidos en las películas Disney y os hablo de mis viajes y de mis experiencias en visitas culturales. Proyecto que llevo a cabo con el objetivo de hacer el arte accesible a todos los públicos mediante un lenguaje comprensible."
-    />
-    <meta
-      property="og:image"
-      content="https://opengraph.b-cdn.net/production/images/8330f603-c8b4-4c61-bdf6-b2c4cd5a4704.jpg?token=YDl5emfgT4wpKezqhvlW747glLR2qjQvXUCXxQ1LdG4&height=1449&width=1200&expires=33259224249"
-    />
+    <meta property="og:title" content={finalOgTitle} />
+    <meta property="og:description" content={finalOgDescription} />
+    <meta property="og:image" content={finalOgImage} />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content="lameninaperdida.art" />
     <meta property="twitter:url" content="https://lameninaperdida.art" />
-    <meta
-      name="twitter:title"
-      content="Para que veas el arte con otros ojos | La menina perdida"
-    />
-    <meta
-      name="twitter:description"
-      content="Espacio donde descubrimos secretos y curiosidades tras las obras de arte, curiosidades y objetos artísticos escondidos en las películas Disney y os hablo de mis viajes y de mis experiencias en visitas culturales. Proyecto que llevo a cabo con el objetivo de hacer el arte accesible a todos los públicos mediante un lenguaje comprensible. Muestro las obras de arte desde el punto de vista de las curiosidades y leyendas que encierran. Verás el arte con otros ojos."
-    />
-    <meta
-      name="twitter:image"
-      content="https://opengraph.b-cdn.net/production/images/8330f603-c8b4-4c61-bdf6-b2c4cd5a4704.jpg?token=YDl5emfgT4wpKezqhvlW747glLR2qjQvXUCXxQ1LdG4&height=1449&width=1200&expires=33259224249"
-    />
+    <meta name="twitter:title" content={finalOgTitle} />
+    <meta name="twitter:description" content={finalOgDescription} />
+    <meta name="twitter:image" content={finalOgImage} />
 
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 

@@ -7,7 +7,11 @@ import { getPostsOrderedByDate } from '../../services/posts';
 const posts = await getPostsOrderedByDate();
 ---
 
-<ListLayout title="Todos los posts" topic="all">
+<ListLayout
+  title="Todos los posts"
+  topic="all"
+  pageDescription="Explora todos los artículos sobre arte, viajes y curiosidades culturales. Descubre secretos tras las obras de arte, experiencias de viaje únicas y referencias artísticas en películas Disney."
+>
   <section
     id="all-posts"
     class="max-w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-16 gap-x-8 lg:gap-y-12 pt-4"

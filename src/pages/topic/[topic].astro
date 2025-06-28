@@ -18,11 +18,25 @@ const { posts } = Astro.props;
 const filteredPosts = posts.filter((post) => {
   return post.data.topic === topic;
 });
+
+// Descripciones específicas por topic
+const topicDescriptions = {
+  arte: 'Descubre secretos y curiosidades tras las obras de arte más famosas. Análisis detallado de pinturas, esculturas y movimientos artísticos con un lenguaje accesible para todos los públicos.',
+  viajes:
+    'Explora destinos culturales y experiencias de viaje únicas. Visitas a museos, monumentos históricos y lugares con valor artístico y cultural.',
+  disney:
+    'Descubre las referencias artísticas y culturales escondidas en las películas de Disney. Análisis de obras de arte, arquitectura y elementos culturales que aparecen en las animaciones.',
+};
+
+const topicDescription =
+  topicDescriptions[topic as keyof typeof topicDescriptions] ||
+  'Posts sobre arte, viajes y curiosidades culturales.';
 ---
 
 <ListLayout
   title={`Posts sobre ${topic.charAt(0).toUpperCase() + topic.slice(1)}`}
   topic={topic}
+  pageDescription={topicDescription}
 >
   <section
     id={`${topic}-posts`}
