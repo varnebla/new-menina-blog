@@ -5,7 +5,7 @@ const postCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    draft: z.boolean(),
+    draft: z.boolean().default(false),
     abstract: z.string(),
     imagen: z.string(),
     topic: z.string(),
