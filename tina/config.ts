@@ -47,7 +47,7 @@ export default defineConfig({
           type: 'boolean',
           required: true,
           description: 'Si este check está marcado, el post no se publicará',
-        },
+          },
           {
             type: "string",
             name: "tags",
