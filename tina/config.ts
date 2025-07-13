@@ -42,6 +42,13 @@ export default defineConfig({
             required: true,
           },
           {
+          name: 'draft',
+          label: 'Draft',
+          type: 'boolean',
+          required: true,
+          description: 'Si este check está marcado, el post no se publicará',
+        },
+          {
             type: "string",
             name: "tags",
             label: "Tags",
@@ -88,6 +95,7 @@ export default defineConfig({
             name: "abstract",
             label: "Abstract",
             required: true,
+            description: 'Descripción de entre 150 y 250 caracteres',
             ui: {
               component: "textarea",
             },
