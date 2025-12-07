@@ -4,7 +4,7 @@
 
 <header
   id="navigationBar"
-  class="fixed top-0 left-0 right-0 backdrop-blur bg-opacity-75 bg-background z-10 shadow-sm text-pearl-900"
+  class="fixed top-0 left-0 right-0 bg-opacity-75 bg-background z-10 text-pearl-900 navigation-bar"
   transition:persist
 >
   <div
@@ -124,3 +124,20 @@
     }
   });
 </script>
+<style>
+  .navigation-bar {
+    animation: navigation-bar-scroll both linear;
+    animation-timeline: scroll();
+    animation-range: normal 100px;
+  }
+  @keyframes navigation-bar-scroll {
+    /* from {
+      backdrop-filter: blur(0px);
+      box-shadow: none;
+    } */
+    to {
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>
