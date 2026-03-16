@@ -1,0 +1,102 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  items.length > 1 && (
+    <nav aria-label="Tabla de contenidos">
+      <p class="text-[11px] uppercase tracking-[0.28em] text-pearl-400 mb-4">
+        Contenidos
+      </p>
+      <ol class="space-y-2">
+        {items.map((h) => (
+          <li>
+            <a
+              href={`#${h.slug}`}
+              class:list={[
+                'toc-link block text-sm leading-snug',
+                h.depth === 3 && 'pl-3 text-[13px]',
+              ]}
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .toc-link {
+    color: #5c5c5c;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .toc-link:hover {
+    color: #333333;
+  }
+  .toc-link.is-active {
+    color: #333333;
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  function initToc() {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+    if (!links.length) return;
+
+    const headings = Array.from(links)
+      .map((l) => {
+        const id = l.getAttribute('href')?.slice(1);
+        return id ? document.getElementById(id) : null;
+      })
+      .filter(Boolean) as HTMLElement[];
+
+    if (!headings.length) return;
+
+    const OFFSET = 120; // navbar height + breathing room
+    let raf = 0;
+
+    function update() {
+      const y = window.scrollY + OFFSET;
+      let active: HTMLElement | null = null;
+
+      for (const h of headings) {
+        if (h.offsetTop <= y) active = h;
+      }
+
+      links.forEach((l) => {
+        const href = l.getAttribute('href');
+        l.classList.toggle('is-active', href === `#${active?.id ?? ''}`);
+      });
+    }
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(update);
+      },
+      { passive: true },
+    );
+
+    // Run once on load in case the user lands mid-page
+    update();
+  }
+
+  // Re-init on Astro view transitions
+  document.addEventListener('astro:page-load', initToc);
+</script>

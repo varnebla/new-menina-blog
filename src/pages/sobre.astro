@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildBreadcrumbSchema, toAbsoluteUrl } from '../utils/seo';
+
+const structuredData = buildBreadcrumbSchema([
+  { name: 'Inicio', url: toAbsoluteUrl('/') },
+  { name: 'Sobre mí', url: toAbsoluteUrl('/sobre') },
+]);
+---
+
+<BaseLayout
+  pageTitle="Sobre mí"
+  pageDescription="Quién hay detrás de La menina perdida y por qué escribo sobre arte, viajes y cultura visual."
+  structuredData={structuredData}
+>
+  <section class="max-w-2xl mx-auto pt-6 pb-20">
+    <header class="border-b border-pearl-200 pt-4 pb-10 lg:pt-6 lg:pb-12">
+      <p class="text-[11px] uppercase tracking-[0.32em] text-gold-700">
+        La menina perdida
+      </p>
+      <h1
+        class="mt-4 font-serif text-4xl lg:text-6xl leading-[1.02] tracking-tight text-pearl-900"
+      >
+        Sobre mí
+      </h1>
+    </header>
+
+    <div
+      class="mt-10 prose prose-pearl prose-lg font-serif max-w-none [&_a]:underline"
+    >
+      <p>
+        Soy historiadora del arte y llevo años intentando contar el patrimonio
+        de una manera que no aburra. La menina perdida nació de esa idea:
+        escribir sobre arte, referencias visuales en el cine y la cultura
+        popular, y viajes con historia, de forma accesible y con contexto.
+      </p>
+      <p>
+        No creo que el arte deba ser solo para quien tiene una carrera o ha
+        pisado suficientes museos. Hay historias detrás de cada cuadro, cada
+        plaza y cada película que merecen contarse bien, sin condescendencia ni
+        jerga innecesaria.
+      </p>
+      <p>
+        Si tienes curiosidad, una pregunta, o simplemente quieres decir hola,
+        puedes escribirme por <a
+          href="https://instagram.com/lameninaperdida"
+          target="_blank"
+          rel="noreferrer noopener">Instagram</a
+        >.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

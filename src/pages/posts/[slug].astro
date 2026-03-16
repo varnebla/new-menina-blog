@@ -59,7 +59,7 @@ if (!entry) {
   throw new Error('Post no encontrado durante la generación estática.');
 }
 
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 const relatedPosts = await getRelatedPosts(entry, 3);
 ---
 
@@ -75,6 +75,7 @@ const relatedPosts = await getRelatedPosts(entry, 3);
   relatedPosts={relatedPosts}
   canonical={entry.data.canonical}
   pageDescription={entry.data.seoDescription || entry.data.abstract}
+  headings={headings}
 >
   <Content components={{ PostImage }} />
 </PostLayout>

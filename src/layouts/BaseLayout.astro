@@ -45,7 +45,12 @@ const structuredDataItems = Array.isArray(structuredData)
   : structuredData
     ? [structuredData]
     : [];
-const widthClass = contentWidth === 'wide' ? 'max-w-6xl' : 'max-w-4xl';
+const widthClass =
+  contentWidth === 'wide'
+    ? 'max-w-6xl'
+    : contentWidth === 'post'
+      ? 'max-w-none'
+      : 'max-w-4xl';
 const openGraphType = layout === 'PostLayout' ? 'article' : 'website';
 ---
 

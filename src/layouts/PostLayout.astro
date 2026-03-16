@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import { Image } from 'astro:assets';
 import BlogPostListItem from '../components/BlogPostListItem.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import { formatDate } from '../utils/date';
 import {
   buildBlogPostingSchema,
@@ -24,6 +25,7 @@ interface Props {
   relatedPosts?: PostEntry[];
   canonical?: string;
   ogImage?: string;
+  headings?: { depth: number; slug: string; text: string }[];
 }
 
 const {
@@ -38,6 +40,7 @@ const {
   relatedPosts = [],
   canonical,
   ogImage,
+  headings = [],
 } = Astro.props;
 
 const formatedDate = formatDate(date);
@@ -72,58 +75,125 @@ const structuredData = [
   ogImage={fullImageUrl}
   canonical={canonicalUrl}
   structuredData={structuredData}
-  contentWidth="wide"
+  contentWidth="post"
 >
-  <section class="max-w-3xl mx-auto pt-6 mb-16">
-    <div class="flex flex-col gap-y-6 mb-10">
-      <a
-        href={`/topic/${topic}`}
-        title={`Ir a los posts de ${topic}`}
-        class="text-[11px] w-max uppercase tracking-[0.28em] text-gold-700 hover:underline"
-        >{topicDefinition.label}</a
-      >
-      <h1
-        class="font-serif text-4xl lg:text-6xl leading-[1.02] tracking-[-0.025em] text-pearl-900"
-      >
-        {title}
-      </h1>
-      <p class="text-base lg:text-lg text-pearl-700 max-w-2xl leading-relaxed">
-        {pageDescription}
-      </p>
-      <div
-        class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-pearl-500"
-      >
-        <time>{formatedDate}</time>
-        {
-          tags.map((tag) => (
-            <a
-              href={`/tags/${normalizeTagSlug(tag)}`}
-              class="text-pearl-700 transition-colors duration-150 hover:text-pearl-900 hover:underline"
-            >
-              #{tag}
-            </a>
-          ))
-        }
+  <div class="pt-6 mb-16">
+    <!-- Post header: title, meta, image — narrow -->
+    <div class="max-w-[65ch] mx-auto">
+      <div class="flex flex-col gap-y-6 mb-10">
+        <a
+          href={`/topic/${topic}`}
+          title={`Ir a los posts de ${topic}`}
+          class="text-[11px] w-max uppercase tracking-[0.28em] text-gold-700 hover:underline"
+          >{topicDefinition.label}</a
+        >
+        <h1
+          class="font-serif text-4xl lg:text-6xl leading-[1.02] tracking-[-0.025em] text-pearl-900"
+        >
+          {title}
+        </h1>
+        <p class="text-base lg:text-lg text-pearl-700 leading-relaxed">
+          {pageDescription}
+        </p>
+        <div
+          class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-pearl-500"
+        >
+          <time>{formatedDate}</time>
+          {
+            tags.map((tag) => (
+              <a
+                href={`/tags/${normalizeTagSlug(tag)}`}
+                class="text-pearl-700 transition-colors duration-150 hover:text-pearl-900 hover:underline"
+              >
+                #{tag}
+              </a>
+            ))
+          }
+        </div>
+        <Image
+          src={imagen}
+          alt={title}
+          title={title}
+          width={1200}
+          height={720}
+          class="aspect-[16/9] rounded-2xl object-cover"
+          loading="eager"
+        />
       </div>
-      <Image
-        src={imagen}
-        alt={title}
-        title={title}
-        width={1200}
-        height={720}
-        class="aspect-[16/9] rounded-2xl object-cover"
-        loading="eager"
-      />
+
+      {
+        headings.filter((h) => h.depth === 2 || h.depth === 3).length > 1 && (
+          <details class="xl:hidden mb-8 rounded-xl border border-pearl-200 bg-white/70">
+            <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-pearl-900 select-none list-none flex items-center justify-between">
+              Contenidos
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-pearl-400"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </summary>
+            <div class="px-4 pb-4">
+              <TableOfContents headings={headings} />
+            </div>
+          </details>
+        )
+      }
     </div>
-    <article
-      class="prose prose-pearl prose-lg lg:prose-xl font-serif max-w-none prose-img:max-w-lg prose-img:mx-auto prose-img:rounded prose-img:w-full [&_strong]:font-semibold [&_img+em]:text-center [&_img+em]:block [&_a]:underline"
+
+    <!--
+      3-col grid at xl+: [spacer 1fr] [article 65ch] [toc 200px]
+      The 1fr spacer mirrors the ToC column so the article stays centred.
+      sticky works because the ToC is in normal document flow.
+    -->
+    <div
+      class="xl:grid xl:grid-cols-[1fr_min(65ch,100%)_1fr] xl:gap-x-10 xl:items-start"
     >
-      <slot />
-    </article>
+      <div class="hidden xl:block" aria-hidden="true"></div>
+      <article
+        class="max-w-[65ch] mx-auto xl:max-w-none xl:mx-0 prose prose-pearl prose-lg lg:prose-xl font-serif prose-headings:scroll-mt-28 prose-img:max-w-lg prose-img:mx-auto prose-img:rounded prose-img:w-full [&_strong]:font-semibold [&_img+em]:text-center [&_img+em]:block [&_a]:underline"
+      >
+        <slot />
+      </article>
+      <aside
+        class="hidden xl:flex xl:justify-start self-start sticky top-28 pl-4"
+      >
+        <div class="w-[180px]">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
+    </div>
+
+    <!-- Closing note -->
+    <div
+      class="max-w-[65ch] mx-auto mt-12 border-t border-pearl-200 pt-8 flex flex-col gap-y-2 sm:flex-row sm:items-center sm:justify-between text-sm text-pearl-700"
+    >
+      <p>¿Te ha gustado este artículo? Compártelo o sigue leyendo.</p>
+      <div class="flex items-center gap-x-4">
+        <a
+          href="/posts"
+          class="hover:text-pearl-900 hover:underline transition-colors duration-150"
+          >Ver todos los posts</a
+        >
+        <a
+          href="/sobre"
+          class="hover:text-pearl-900 hover:underline transition-colors duration-150"
+          >Sobre mí</a
+        >
+      </div>
+    </div>
 
     {
       relatedPosts.length ? (
-        <aside class="mt-16 border-t border-pearl-200 pt-10">
+        <aside class="max-w-[65ch] mx-auto mt-16 border-t border-pearl-200 pt-10">
           <div class="flex flex-col gap-y-2 mb-8">
             <p class="text-[11px] uppercase tracking-[0.32em] text-gold-700">
               Seguir explorando
@@ -132,7 +202,7 @@ const structuredData = [
               Más lecturas relacionadas
             </h2>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {relatedPosts.map((post) => (
               <BlogPostListItem post={post} />
             ))}
@@ -140,5 +210,5 @@ const structuredData = [
         </aside>
       ) : null
     }
-  </section>
+  </div>
 </BaseLayout>
