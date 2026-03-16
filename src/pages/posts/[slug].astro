@@ -1,28 +1,80 @@
 ---
 import PostLayout from '../../layouts/PostLayout.astro';
-import { getCollection } from 'astro:content';
 import PostImage from '../../components/PostImage.astro';
+import {
+  getPostPath,
+  getPostSlug,
+  getPostsOrderedByDate,
+  getRelatedPosts,
+  type PostEntry,
+} from '../../services/posts';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('posts');
-  return entries.map((entry) => ({
-    params: {
-      slug: entry.slug,
-    },
-    props: { entry },
-  }));
+  const entries = await getPostsOrderedByDate();
+
+  return entries.flatMap((entry) => {
+    const canonicalSlug = getPostSlug(entry);
+
+    if (canonicalSlug === entry.slug) {
+      return [
+        {
+          params: {
+            slug: canonicalSlug,
+          },
+          props: { entry },
+        },
+      ];
+    }
+
+    return [
+      {
+        params: {
+          slug: canonicalSlug,
+        },
+        props: { entry },
+      },
+      {
+        params: {
+          slug: entry.slug,
+        },
+        props: { redirectTo: getPostPath(entry) },
+      },
+    ];
+  });
 }
 
-const { entry } = Astro.props;
+const {
+  entry,
+  redirectTo,
+}: {
+  entry?: PostEntry;
+  redirectTo?: string;
+} = Astro.props;
+
+if (redirectTo) {
+  return Astro.redirect(redirectTo, 301);
+}
+
+if (!entry) {
+  throw new Error('Post no encontrado durante la generación estática.');
+}
+
 const { Content } = await entry.render();
+const relatedPosts = await getRelatedPosts(entry, 3);
 ---
 
 <PostLayout
   title={entry.data.title}
+  seoTitle={entry.data.seoTitle}
   date={entry.data.fecha}
   topic={entry.data.topic}
   imagen={entry.data.imagen}
-  pageDescription={entry.data.abstract}
+  ogImage={entry.data.ogImage}
+  slug={entry.slug}
+  tags={entry.data.tags}
+  relatedPosts={relatedPosts}
+  canonical={entry.data.canonical}
+  pageDescription={entry.data.seoDescription || entry.data.abstract}
 >
   <Content components={{ PostImage }} />
 </PostLayout>

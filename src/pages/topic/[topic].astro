@@ -2,45 +2,37 @@
 import ListLayout from '../../layouts/ListLayout.astro';
 import BlogPostListItem from '../../components/BlogPostListItem.astro';
 import BlogPostEmpty from '../../components/BlogPostEmpty.astro';
-import { getPostsOrderedByDate } from '../../services/posts';
+import { getPostsByTopic } from '../../services/posts';
+import { toAbsoluteUrl } from '../../utils/seo';
+import { TOPIC_DEFINITIONS, getTopicDefinition } from '../../utils/topics';
 
 export async function getStaticPaths() {
-  const entries = await getPostsOrderedByDate();
-  return [
-    { params: { topic: 'arte' }, props: { posts: entries } },
-    { params: { topic: 'viajes' }, props: { posts: entries } },
-    { params: { topic: 'disney' }, props: { posts: entries } },
-  ];
+  return TOPIC_DEFINITIONS.map((topic) => ({
+    params: { topic: topic.slug },
+  }));
 }
 
 const { topic } = Astro.params;
-const { posts } = Astro.props;
-const filteredPosts = posts.filter((post) => {
-  return post.data.topic === topic;
-});
-
-// Descripciones específicas por topic
-const topicDescriptions = {
-  arte: 'Descubre secretos y curiosidades tras las obras de arte más famosas. Análisis detallado de pinturas, esculturas y movimientos artísticos con un lenguaje accesible para todos los públicos.',
-  viajes:
-    'Explora destinos culturales y experiencias de viaje únicas. Visitas a museos, monumentos históricos y lugares con valor artístico y cultural.',
-  disney:
-    'Descubre las referencias artísticas y culturales escondidas en las películas de Disney. Análisis de obras de arte, arquitectura y elementos culturales que aparecen en las animaciones.',
-};
-
-const topicDescription =
-  topicDescriptions[topic as keyof typeof topicDescriptions] ||
-  'Posts sobre arte, viajes y curiosidades culturales.';
+const currentTopic = getTopicDefinition(topic || 'arte');
+const filteredPosts = await getPostsByTopic(currentTopic.slug);
+const topicDescription = currentTopic.description;
+const breadcrumbs = [
+  { name: 'Inicio', url: toAbsoluteUrl('/') },
+  { name: 'Posts', url: toAbsoluteUrl('/posts') },
+  { name: currentTopic.label, url: toAbsoluteUrl(Astro.url.pathname) },
+];
 ---
 
 <ListLayout
-  title={`Posts sobre ${topic.charAt(0).toUpperCase() + topic.slice(1)}`}
-  topic={topic}
+  title={`Archivo de ${currentTopic.label}`}
+  topic={currentTopic.slug}
+  eyebrow={currentTopic.kicker}
   pageDescription={topicDescription}
+  breadcrumbs={breadcrumbs}
 >
   <section
-    id={`${topic}-posts`}
-    class="max-w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-16 gap-x-8 lg:gap-y-12 pt-4"
+    id={`${currentTopic.slug}-posts`}
+    class="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-8 pt-4"
   >
     {
       !filteredPosts || !filteredPosts.length ? (

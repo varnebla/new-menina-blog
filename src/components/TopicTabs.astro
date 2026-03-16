@@ -1,80 +1,41 @@
 ---
+import { TOPIC_DEFINITIONS } from '../utils/topics';
+
 interface Props {
   activeTab: string;
 }
+
 const { activeTab } = Astro.props;
+
+const tabs = [
+  { slug: 'all', label: 'Todos los posts', href: '/posts' },
+  ...TOPIC_DEFINITIONS.map((topic) => ({
+    slug: topic.slug,
+    label: topic.label,
+    href: `/topic/${topic.slug}`,
+  })),
+];
 ---
 
-<div class="mb-4 border-b border-pearl-200">
-  <ul
-    class="flex flex-wrap -mb-px text-sm font-medium text-center"
-    id="default-tab"
-    data-tabs-toggle="#default-tab-content"
-    role="tablist"
-  >
-    <li class="me-2" role="presentation">
-      <a
-        class="inline-block p-4 pl-0 rounded-t-lg hover:text-pearl-700"
-        id="all-tab"
-        href="/posts"
-        class:list={[
-          activeTab == 'all'
-            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
-            : '',
-        ]}
-        data-tabs-target="#all"
-        role="tab"
-        aria-controls="all-posts"
-        aria-selected={activeTab == 'all'}>Todos los posts</a
-      >
-    </li>
-    <li class="me-2" role="presentation">
-      <a
-        class="inline-block p-4 rounded-t-lg hover:text-pearl-700"
-        id="arte-tab"
-        href="/topic/arte"
-        class:list={[
-          activeTab == 'arte'
-            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
-            : '',
-        ]}
-        data-tabs-target="#arte"
-        role="tab"
-        aria-controls="arte-posts"
-        aria-selected={activeTab == 'arte'}>Arte</a
-      >
-    </li>
-    <li class="me-2" role="presentation">
-      <a
-        class="inline-block p-4 rounded-t-lg hover:text-pearl-700"
-        id="disney-tab"
-        href="/topic/disney"
-        class:list={[
-          activeTab == 'disney'
-            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
-            : '',
-        ]}
-        data-tabs-target="#disney"
-        role="tab"
-        aria-controls="disney-posts"
-        aria-selected={activeTab == 'disney'}>Disney</a
-      >
-    </li>
-    <li role="presentation">
-      <a
-        class="inline-block p-4 rounded-t-lg hover:text-pearl-700"
-        id="viajes-tab"
-        href="/topic/viajes"
-        class:list={[
-          activeTab == 'viajes'
-            ? 'font-semibold border-b-2 text-pearl-900 border-pearl-900'
-            : '',
-        ]}
-        data-tabs-target="#viajes"
-        role="tab"
-        aria-controls="viajes-posts"
-        aria-selected={activeTab == 'viajes'}>Viajes</a
-      >
-    </li>
+<nav class="mb-4 border-b border-pearl-200" aria-label="Filtrar por tema">
+  <ul class="flex flex-wrap -mb-px gap-x-1 text-sm font-medium text-center">
+    {
+      tabs.map((tab) => (
+        <li>
+          <a
+            href={tab.href}
+            aria-current={activeTab == tab.slug ? 'page' : undefined}
+            class:list={[
+              'inline-flex items-center rounded-t-full px-4 py-3 transition-colors duration-150',
+              activeTab == tab.slug
+                ? 'border-b-2 border-pearl-900 font-semibold text-pearl-900'
+                : 'text-pearl-700 hover:text-pearl-900',
+            ]}
+          >
+            {tab.label}
+          </a>
+        </li>
+      ))
+    }
   </ul>
-</div>
+</nav>

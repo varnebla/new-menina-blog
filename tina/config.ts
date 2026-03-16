@@ -49,6 +49,13 @@ export default defineConfig({
           required: false,
           },
           {
+            name: 'featured',
+            label: 'Destacado en home',
+            type: 'boolean',
+            description: 'Actívalo si quieres priorizar este artículo en la portada.',
+            required: false,
+          },
+          {
             type: "string",
             name: "tags",
             label: "Tags",
@@ -99,6 +106,36 @@ export default defineConfig({
             ui: {
               component: "textarea",
             },
+          },
+          {
+            type: "string",
+            name: "seoTitle",
+            label: "SEO title",
+            required: false,
+            description: 'Opcional. Si se rellena, sustituye al título del post en metadatos.',
+          },
+          {
+            type: "string",
+            name: "seoDescription",
+            label: "SEO description",
+            required: false,
+            description: 'Opcional. Recomendado entre 140 y 160 caracteres.',
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            type: "string",
+            name: "canonical",
+            label: "Canonical override",
+            required: false,
+            description: 'Solo si necesitas definir una URL canónica externa o distinta.',
+          },
+          {
+            type: "image",
+            name: "ogImage",
+            label: "Imagen Open Graph",
+            required: false,
           },
           {
             type: "rich-text",

@@ -2,6 +2,15 @@
 import TheNavigationBar from '../components/TheNavigationBar.astro';
 import TheFooter from '../components/TheFooter.astro';
 import { ClientRouter } from 'astro:transitions';
+import {
+  buildPageTitle,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_SITE_DESCRIPTION,
+  getCanonicalUrl,
+  SITE_NAME,
+  SITE_URL,
+  toAbsoluteUrl,
+} from '../utils/seo';
 
 // Supports weights 400-700
 import '@fontsource-variable/lora';
@@ -16,22 +25,28 @@ const {
   ogImage,
   ogTitle,
   ogDescription,
+  canonical,
+  structuredData,
+  noIndex = false,
+  contentWidth = 'default',
 } = Astro.props;
 
-// Valores por defecto para SEO
-const defaultOgTitle =
-  'Para que veas el arte con otros ojos | La menina perdida';
-const defaultOgDescription =
-  'Espacio donde descubrimos secretos y curiosidades tras las obras de arte, curiosidades y objetos artísticos escondidos en las películas Disney y os hablo de mis viajes y de mis experiencias en visitas culturales. Proyecto que llevo a cabo con el objetivo de hacer el arte accesible a todos los públicos mediante un lenguaje comprensible.';
-const defaultOgImage =
-  'https://opengraph.b-cdn.net/production/images/8330f603-c8b4-4c61-bdf6-b2c4cd5a4704.jpg?token=YDl5emfgT4wpKezqhvlW747glLR2qjQvXUCXxQ1LdG4&height=1449&width=1200&expires=33259224249';
-
-// Usar valores dinámicos o fallbacks
-const finalOgTitle =
-  ogTitle || pageTitle ? `${pageTitle} | La menina perdida` : defaultOgTitle;
-const finalOgDescription =
-  ogDescription || pageDescription || defaultOgDescription;
-const finalOgImage = ogImage || defaultOgImage;
+const finalDescription = pageDescription || DEFAULT_SITE_DESCRIPTION;
+const finalTitle = buildPageTitle(pageTitle);
+const finalOgTitle = ogTitle || finalTitle;
+const finalOgDescription = ogDescription || finalDescription;
+const finalOgImage = toAbsoluteUrl(ogImage || DEFAULT_OG_IMAGE);
+const canonicalUrl = getCanonicalUrl(Astro.url.pathname, canonical);
+const robotsContent = noIndex
+  ? 'noindex, nofollow'
+  : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+const structuredDataItems = Array.isArray(structuredData)
+  ? structuredData
+  : structuredData
+    ? [structuredData]
+    : [];
+const widthClass = contentWidth === 'wide' ? 'max-w-6xl' : 'max-w-4xl';
+const openGraphType = layout === 'PostLayout' ? 'article' : 'website';
 ---
 
 <html lang="es" class="min-h-screen">
@@ -40,12 +55,23 @@ const finalOgImage = ogImage || defaultOgImage;
     <link rel="icon" type="image" href="/favicon-menina.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`RSS | ${SITE_NAME}`}
+      href="/rss.xml"
+    />
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={pageDescription} />
+    <meta name="description" content={finalDescription} />
+    <meta name="robots" content={robotsContent} />
+    <meta name="theme-color" content="#F5F0E4" />
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://lameninaperdida.art" />
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={openGraphType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="es_ES" />
     <meta property="og:title" content={finalOgTitle} />
     <meta property="og:description" content={finalOgDescription} />
     <meta property="og:image" content={finalOgImage} />
@@ -53,14 +79,12 @@ const finalOgImage = ogImage || defaultOgImage;
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content="lameninaperdida.art" />
-    <meta property="twitter:url" content="https://lameninaperdida.art" />
+    <meta property="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={finalOgTitle} />
     <meta name="twitter:description" content={finalOgDescription} />
     <meta name="twitter:image" content={finalOgImage} />
 
-    <!-- Meta Tags Generated via https://www.opengraph.xyz -->
-
-    <title>{pageTitle} | La menina perdida</title>
+    <title>{finalTitle}</title>
     <script
       defer
       src="https://analytics.varnebla.dev/script.js"
@@ -68,10 +92,15 @@ const finalOgImage = ogImage || defaultOgImage;
     <script>
       if (!import.meta.env.PROD) localStorage.setItem('umami.disabled', '1');
     </script>
+    {
+      structuredDataItems.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
     <ClientRouter />
   </head>
   <body
-    class="flex flex-col min-h-screen text-lg font-dm-sans relative bg-background"
+    class="flex flex-col min-h-screen text-lg font-sans relative bg-background text-pearl-900 selection:bg-gold-200/60"
   >
     <TheNavigationBar />
     <div
@@ -79,7 +108,7 @@ const finalOgImage = ogImage || defaultOgImage;
       class:list={[layout != 'PostLayout' && 'hidden']}
     >
     </div>
-    <main class="px-4 lg:px-0 max-w-4xl mx-auto w-full mb-16 mt-24">
+    <main class:list={['px-4 lg:px-0 mx-auto w-full mb-16 mt-24', widthClass]}>
       <slot />
     </main>
     <TheFooter />

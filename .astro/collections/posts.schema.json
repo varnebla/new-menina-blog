@@ -11,20 +11,33 @@
           "type": "boolean",
           "default": false
         },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
         "abstract": {
           "type": "string"
         },
         "imagen": {
           "type": "string"
         },
-        "topic": {
+        "ogImage": {
           "type": "string"
+        },
+        "topic": {
+          "type": "string",
+          "enum": [
+            "arte",
+            "disney",
+            "viajes"
+          ]
         },
         "tags": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "default": []
         },
         "fecha": {
           "anyOf": [
@@ -42,6 +55,18 @@
             }
           ]
         },
+        "seoTitle": {
+          "type": "string",
+          "maxLength": 70
+        },
+        "seoDescription": {
+          "type": "string",
+          "maxLength": 180
+        },
+        "canonical": {
+          "type": "string",
+          "format": "uri"
+        },
         "$schema": {
           "type": "string"
         }
@@ -51,7 +76,6 @@
         "abstract",
         "imagen",
         "topic",
-        "tags",
         "fecha"
       ],
       "additionalProperties": false

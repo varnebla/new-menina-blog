@@ -1,53 +1,80 @@
 ---
 import { Image } from 'astro:assets';
+import type { PostEntry } from '../services/posts';
+import { getPostPath } from '../services/posts';
 import { formatDate } from '../utils/date';
+import { getTopicDefinition } from '../utils/topics';
 
 interface Props {
-  post: {
-    data: {
-      title: string;
-      imagen: string;
-      fecha: Date;
-      topic: string;
-    };
-    slug: string;
-  };
+  post: Pick<PostEntry, 'data' | 'slug'>;
   isEagerImg?: boolean;
+  variant?: 'default' | 'feature';
+  showExcerpt?: boolean;
 }
 
-const { post, isEagerImg } = Astro.props;
+const {
+  post,
+  isEagerImg,
+  variant = 'default',
+  showExcerpt = variant === 'feature',
+} = Astro.props;
 
 const formatedDate = formatDate(post.data.fecha);
+const topicLabel = getTopicDefinition(post.data.topic).label;
+const href = getPostPath(post);
+const isFeature = variant === 'feature';
 ---
 
 <a
-  href={`/posts/${post.slug}`}
+  href={href}
   title={`Ir al post de ${post.data.title}`}
-  class="flex flex-col gap-y-4 justify-start w-full group overflow-hidden"
+  class:list={[
+    'group overflow-hidden transition-transform duration-300',
+    isFeature
+      ? 'grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.95fr)] rounded-[2rem] border border-pearl-200 bg-white/80 p-4 lg:p-6'
+      : 'flex flex-col gap-y-4 justify-start w-full',
+  ]}
 >
-  <div class="w-full aspect-video overflow-hidden rounded">
+  <div
+    class:list={[
+      'w-full overflow-hidden rounded',
+      isFeature
+        ? 'aspect-[4/3] lg:aspect-[5/4] rounded-[1.5rem]'
+        : 'aspect-video',
+    ]}
+  >
     <Image
       src={post.data.imagen}
       alt={post.data.title}
       title={post.data.title}
-      width={200}
-      height={100}
+      width={isFeature ? 960 : 400}
+      height={isFeature ? 720 : 240}
       class="w-full object-cover aspect-video group-hover:scale-[1.025] transition-transform duration-300 ease-in rounded overflow-hidden"
       loading={isEagerImg ? 'eager' : 'lazy'}
     />
   </div>
-  <div class="flex flex-col gap-y-2 w-full justify-center">
-    <p class="text-sm w-max uppercase text-gold-700">
-      {post.data.topic}
+  <div class="flex flex-col gap-y-3 w-full justify-center">
+    <p class="text-sm w-max uppercase tracking-[0.22em] text-gold-700">
+      {topicLabel}
     </p>
     <div class="group flex flex-col gap-y-2">
       <p
         class:list={[
-          'font-semibold text-xl leading-tight group-hover:underline text-pearl-900',
+          'group-hover:underline text-pearl-900',
+          isFeature
+            ? 'font-serif text-3xl lg:text-5xl leading-[1.02] tracking-tight'
+            : 'font-serif text-xl leading-snug tracking-tight',
         ]}
       >
         {post.data.title}
       </p>
+      {
+        showExcerpt ? (
+          <p class="text-base leading-relaxed text-pearl-700">
+            {post.data.abstract}
+          </p>
+        ) : null
+      }
       <p class="text-sm text-pearl-700">{formatedDate}</p>
     </div>
   </div>

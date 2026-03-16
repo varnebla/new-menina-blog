@@ -1,33 +1,53 @@
 ---
+import { TOPIC_DEFINITIONS } from '../utils/topics';
 
+const navigationLinks = [
+  { href: '/posts', label: 'Archivo' },
+  ...TOPIC_DEFINITIONS.map((topic) => ({
+    href: `/topic/${topic.slug}`,
+    label: topic.label,
+  })),
+];
 ---
 
 <header
   id="navigationBar"
-  class="fixed top-0 left-0 right-0 bg-opacity-75 bg-background z-10 text-pearl-900 navigation-bar"
+  class="fixed top-0 left-0 right-0 z-20 text-pearl-900 navigation-bar border-b border-pearl-200/70 bg-background/85"
   transition:persist
 >
   <div
-    class="px-4 lg:px-0 max-w-4xl mx-auto w-full flex items-center justify-between"
+    class="px-4 lg:px-0 max-w-6xl mx-auto w-full flex items-center justify-between gap-x-6"
   >
     <a
       id="navigationBarTitle"
       href="/"
       title="Ir a la página principal"
-      class="text-lg font-bold transition-opacity duration-200 py-6"
-      >La menina perdida</a
+      class="py-5 flex flex-col transition-opacity duration-200"
     >
-    <nav class="text-base gap-x-6 hidden lg:flex relative">
-      <a
-        href="/posts"
-        class="hover:backdrop-brightness-90 px-4 py-1 rounded-full flex items-center gap-x-1"
-        >Posts</a
+      <span class="text-lg font-semibold tracking-tight">La menina perdida</span
       >
+      <span class="text-[11px] uppercase tracking-[0.28em] text-pearl-700">
+        Blog cultural
+      </span>
+    </a>
+    <nav class="text-[15px] gap-x-2 hidden lg:flex relative items-center">
+      {
+        navigationLinks.map((link) => (
+          <a
+            href={link.href}
+            class="hover:bg-white/80 px-4 py-2 rounded-full flex items-center gap-x-1 transition-colors duration-150"
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
     <button
       id="open-mobile-navigation-btn"
-      class="inline lg:hidden hamburguer"
-      aria-label="open mobile menu"
+      class="inline lg:hidden hamburguer rounded-full border border-pearl-200 bg-white/80 p-2"
+      aria-label="Abrir menú de navegación"
+      aria-controls="mobile-navigation"
+      aria-expanded="false"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -49,8 +69,10 @@
     <button
       id="close-mobile-navigation-btn"
       style="display: none;"
-      class="absolute right-0 top-0 mx-4 my-6"
-      aria-label="close mobile menu"
+      class="lg:hidden absolute right-0 top-0 mx-4 my-5 rounded-full border border-pearl-200 bg-white/90 p-2"
+      aria-label="Cerrar menú de navegación"
+      aria-controls="mobile-navigation"
+      aria-expanded="true"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -69,58 +91,58 @@
   </div>
   <div
     id="mobile-navigation"
-    class="px-4 pt-2 pb-4 w-full animate-fade-in-down"
+    class="px-4 pt-2 pb-5 w-full animate-fade-in-down border-t border-pearl-200/80 bg-background/95"
     style="display:none"
   >
-    <nav class="flex flex-col gap-y-6 text-lg font-medium">
-      <a href="/posts">Posts</a>
+    <nav class="max-w-6xl mx-auto flex flex-col gap-y-4 text-lg font-medium">
+      {
+        navigationLinks.map((link) => (
+          <a href={link.href} class="py-1">
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
   </div>
 </header>
 
 <script>
   const mobileNavigation = document.querySelector(
-    '#mobile-navigation'
-  ) as HTMLElement;
-  const desktopNavigation = document.querySelector(
-    '#desktop-navigation'
+    '#mobile-navigation',
   ) as HTMLElement;
   const closeButton = document.querySelector(
-    '#close-mobile-navigation-btn'
+    '#close-mobile-navigation-btn',
   ) as HTMLElement;
   const openSideMenuButton = document.querySelector(
-    '#open-mobile-navigation-btn'
+    '#open-mobile-navigation-btn',
   ) as HTMLElement;
 
-  openSideMenuButton.addEventListener('click', () => {
+  const closeMenu = () => {
+    closeButton.style.display = 'none';
+    openSideMenuButton.style.removeProperty('display');
+    openSideMenuButton.setAttribute('aria-expanded', 'false');
+    closeButton.setAttribute('aria-expanded', 'false');
+    mobileNavigation.style.display = 'none';
+  };
+
+  const openMenu = () => {
     openSideMenuButton.style.display = 'none';
     closeButton.style.display = 'inline-block';
-    mobileNavigation.style.display = 'flex';
-  });
+    openSideMenuButton.setAttribute('aria-expanded', 'true');
+    closeButton.setAttribute('aria-expanded', 'true');
+    mobileNavigation.style.display = 'block';
+  };
 
-  closeButton.addEventListener('click', () => {
-    closeButton.style.display = 'none';
-    openSideMenuButton.style.display = 'block';
-    mobileNavigation.style.display = 'none';
-  });
+  openSideMenuButton.addEventListener('click', openMenu);
+  closeButton.addEventListener('click', closeMenu);
 
-  document.addEventListener('astro:before-swap', (ev) => {
-    // Pass the incoming document to set the theme on it
-    desktopNavigation.style.display = 'none';
-    mobileNavigation.style.display = 'none';
-    closeButton.style.display = 'none';
-    openSideMenuButton.removeAttribute('style');
-  });
+  document.addEventListener('astro:before-swap', closeMenu);
 
   const desktopMediaQuery = window.matchMedia('(min-width: 1024px)');
 
   desktopMediaQuery.addEventListener('change', (event) => {
     if (event.matches) {
-      mobileNavigation.style.display = 'none';
-      closeButton.style.display = 'none';
-      openSideMenuButton.removeAttribute('style');
-    } else {
-      desktopNavigation.style.display = 'none';
+      closeMenu();
     }
   });
 </script>
@@ -137,7 +159,7 @@
     } */
     to {
       backdrop-filter: blur(10px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 40px rgba(51, 51, 51, 0.08);
     }
   }
 </style>

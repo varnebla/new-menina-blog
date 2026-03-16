@@ -1,22 +1,67 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TopicTabs from '../components/TopicTabs.astro';
+import {
+  buildBreadcrumbSchema,
+  buildCollectionPageSchema,
+  toAbsoluteUrl,
+} from '../utils/seo';
+import { getTopicDefinition } from '../utils/topics';
 
 interface Props {
   title: string;
   topic: string;
   pageDescription?: string;
+  eyebrow?: string;
+  breadcrumbs?: { name: string; url: string }[];
 }
-const { title, topic, pageDescription } = Astro.props;
+
+const { title, topic, pageDescription, eyebrow, breadcrumbs } = Astro.props;
+const topicDefinition = getTopicDefinition(topic);
+const currentUrl = toAbsoluteUrl(Astro.url.pathname);
+const defaultDescription =
+  pageDescription ||
+  'Explora el archivo editorial de La menina perdida con artículos sobre arte, cultura visual y viajes.';
+const structuredData = [
+  buildCollectionPageSchema({
+    title,
+    description: defaultDescription,
+    url: currentUrl,
+  }),
+  buildBreadcrumbSchema(
+    breadcrumbs || [
+      { name: 'Inicio', url: toAbsoluteUrl('/') },
+      { name: 'Posts', url: toAbsoluteUrl('/posts') },
+      ...(topic === 'all'
+        ? []
+        : [{ name: topicDefinition.label, url: currentUrl }]),
+    ],
+  ),
+];
 ---
 
 <BaseLayout
   pageTitle={title}
-  pageDescription={pageDescription}
+  pageDescription={defaultDescription}
   ogTitle={title}
-  ogDescription={pageDescription}
+  ogDescription={defaultDescription}
+  structuredData={structuredData}
 >
-  <h1 class="text-2xl lg:text-4xl font-bold mb-6">{title}</h1>
-  <TopicTabs activeTab={topic} />
+  <header class="pt-4 pb-4 lg:pt-6">
+    <p class="text-[11px] uppercase tracking-[0.32em] text-gold-700">
+      {eyebrow || (topic === 'all' ? 'Archivo' : topicDefinition.kicker)}
+    </p>
+    <h1
+      class="mt-4 font-serif text-4xl lg:text-6xl leading-[1.02] tracking-tight text-pearl-900 max-w-2xl"
+    >
+      {title}
+    </h1>
+    <p class="mt-4 max-w-lg text-base text-pearl-700 leading-relaxed">
+      {defaultDescription}
+    </p>
+  </header>
+  <div class="mt-8">
+    <TopicTabs activeTab={topic} />
+  </div>
   <slot />
 </BaseLayout>

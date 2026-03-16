@@ -1,57 +1,144 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import { Image } from 'astro:assets';
+import BlogPostListItem from '../components/BlogPostListItem.astro';
 import { formatDate } from '../utils/date';
+import {
+  buildBlogPostingSchema,
+  buildBreadcrumbSchema,
+  toAbsoluteUrl,
+} from '../utils/seo';
+import { normalizeTagSlug } from '../utils/taxonomy';
+import { getTopicDefinition } from '../utils/topics';
+import type { PostEntry } from '../services/posts';
 
 interface Props {
   title: string;
+  seoTitle?: string;
   date: Date;
   topic: string;
   imagen: string;
   pageDescription: string;
+  slug: string;
+  tags?: string[];
+  relatedPosts?: PostEntry[];
+  canonical?: string;
+  ogImage?: string;
 }
-const { title, date, topic, imagen, pageDescription } = Astro.props;
+
+const {
+  title,
+  seoTitle,
+  date,
+  topic,
+  imagen,
+  pageDescription,
+  slug,
+  tags = [],
+  relatedPosts = [],
+  canonical,
+  ogImage,
+} = Astro.props;
 
 const formatedDate = formatDate(date);
-
-// Construir URL completa de la imagen para SEO
-const fullImageUrl = imagen.startsWith('http')
-  ? imagen
-  : `https://lameninaperdida.art${imagen}`;
+const topicDefinition = getTopicDefinition(topic);
+const canonicalUrl = canonical || toAbsoluteUrl(`/posts/${slug}`);
+const fullImageUrl = toAbsoluteUrl(ogImage || imagen);
+const pageHeading = seoTitle || title;
+const structuredData = [
+  buildBlogPostingSchema({
+    title: pageHeading,
+    description: pageDescription,
+    url: canonicalUrl,
+    image: fullImageUrl,
+    datePublished: new Date(date).toISOString(),
+    keywords: tags,
+    section: topicDefinition.label,
+  }),
+  buildBreadcrumbSchema([
+    { name: 'Inicio', url: toAbsoluteUrl('/') },
+    { name: 'Posts', url: toAbsoluteUrl('/posts') },
+    { name: title, url: canonicalUrl },
+  ]),
+];
 ---
 
 <BaseLayout
-  pageTitle={title}
+  pageTitle={pageHeading}
   pageDescription={pageDescription}
   layout="PostLayout"
-  ogTitle={title}
+  ogTitle={pageHeading}
   ogDescription={pageDescription}
   ogImage={fullImageUrl}
+  canonical={canonicalUrl}
+  structuredData={structuredData}
+  contentWidth="wide"
 >
-  <section class="max-w-[60ch] mx-auto pt-4 mb-16">
-    <div class="flex flex-col gap-y-4 mb-6">
+  <section class="max-w-3xl mx-auto pt-6 mb-16">
+    <div class="flex flex-col gap-y-6 mb-10">
       <a
         href={`/topic/${topic}`}
         title={`Ir a los posts de ${topic}`}
-        class="text-sm w-max uppercase text-gold-700 hover:underline pl-1"
-        >{topic}</a
+        class="text-[11px] w-max uppercase tracking-[0.28em] text-gold-700 hover:underline"
+        >{topicDefinition.label}</a
       >
-      <h1 class="font-bold text-5xl text-pearl-900">{title}</h1>
-      <p class="text-sm text-pearl-700">{formatedDate}</p>
+      <h1
+        class="font-serif text-4xl lg:text-6xl leading-[1.02] tracking-[-0.025em] text-pearl-900"
+      >
+        {title}
+      </h1>
+      <p class="text-base lg:text-lg text-pearl-700 max-w-2xl leading-relaxed">
+        {pageDescription}
+      </p>
+      <div
+        class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-pearl-500"
+      >
+        <time>{formatedDate}</time>
+        {
+          tags.map((tag) => (
+            <a
+              href={`/tags/${normalizeTagSlug(tag)}`}
+              class="text-pearl-700 transition-colors duration-150 hover:text-pearl-900 hover:underline"
+            >
+              #{tag}
+            </a>
+          ))
+        }
+      </div>
       <Image
         src={imagen}
         alt={title}
         title={title}
-        width={720}
-        height={380}
-        class="aspect-video rounded object-cover"
+        width={1200}
+        height={720}
+        class="aspect-[16/9] rounded-2xl object-cover"
         loading="eager"
       />
     </div>
     <article
-      class="prose prose-pearl prose-lg lg:prose-xl font-serif max-w-none prose-headings:font-dm-sans prose-headings:font-bold prose-img:max-w-lg prose-img:mx-auto prose-img:rounded prose-img:w-full [&_strong]:font-semibold [&_img+em]:text-center [&_img+em]:block [&_a]:underline"
+      class="prose prose-pearl prose-lg lg:prose-xl font-serif max-w-none prose-img:max-w-lg prose-img:mx-auto prose-img:rounded prose-img:w-full [&_strong]:font-semibold [&_img+em]:text-center [&_img+em]:block [&_a]:underline"
     >
       <slot />
     </article>
+
+    {
+      relatedPosts.length ? (
+        <aside class="mt-16 border-t border-pearl-200 pt-10">
+          <div class="flex flex-col gap-y-2 mb-8">
+            <p class="text-[11px] uppercase tracking-[0.32em] text-gold-700">
+              Seguir explorando
+            </p>
+            <h2 class="font-serif text-3xl lg:text-4xl leading-tight tracking-tight text-pearl-900">
+              Más lecturas relacionadas
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {relatedPosts.map((post) => (
+              <BlogPostListItem post={post} />
+            ))}
+          </div>
+        </aside>
+      ) : null
+    }
   </section>
 </BaseLayout>

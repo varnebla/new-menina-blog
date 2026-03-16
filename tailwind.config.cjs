@@ -75,7 +75,7 @@ module.exports = {
       })
     },
     fontFamily: {
-      'dm-sans': ['Geist Sans', 'sans-serif'],
+      'sans': ['Geist Sans', 'sans-serif'],
       serif: ['Lora Variable', 'serif']
     }
   },

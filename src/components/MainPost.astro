@@ -1,9 +1,7 @@
 ---
-import PostDate from './PostDate.astro';
-import { Image } from 'astro:assets';
-import defaultImage from '../assets/menina-default.jpeg';
+import { getPostPath } from '../services/posts';
 
-const { post, titleClass } = Astro.props;
+const { post } = Astro.props;
 ---
 
-<a href={`/blog/${post.slug}`}>{post.title}</a>
+<a href={getPostPath(post)}>{post.title}</a>

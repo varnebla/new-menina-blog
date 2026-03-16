@@ -1,0 +1,51 @@
+---
+import BlogPostEmpty from '../../components/BlogPostEmpty.astro';
+import BlogPostListItem from '../../components/BlogPostListItem.astro';
+import ListLayout from '../../layouts/ListLayout.astro';
+import { getAllTags, getPostsByTag } from '../../services/posts';
+import { toAbsoluteUrl } from '../../utils/seo';
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+
+  return tags.map((tag) => ({
+    params: { tag: tag.slug },
+    props: { tagLabel: tag.label, tagCount: tag.count },
+  }));
+}
+
+const { tag } = Astro.params;
+const { tagLabel, tagCount } = Astro.props;
+const posts = await getPostsByTag(tag || '');
+const title = `Posts con la etiqueta ${tagLabel}`;
+const pageDescription = `${tagCount} artículos relacionados con ${tagLabel} en el archivo de La menina perdida.`;
+const breadcrumbs = [
+  { name: 'Inicio', url: toAbsoluteUrl('/') },
+  { name: 'Posts', url: toAbsoluteUrl('/posts') },
+  { name: tagLabel, url: toAbsoluteUrl(Astro.url.pathname) },
+];
+---
+
+<ListLayout
+  title={title}
+  topic="all"
+  eyebrow="Etiquetas"
+  pageDescription={pageDescription}
+  breadcrumbs={breadcrumbs}
+>
+  <section
+    id={`${tag}-posts`}
+    class="grid grid-cols-1 sm:grid-cols-2 gap-y-12 gap-x-8 pt-4"
+  >
+    {
+      !posts.length ? (
+        <BlogPostEmpty />
+      ) : (
+        posts.map((post, index) => {
+          const isEagerImg = index < 2;
+          return <BlogPostListItem post={post} isEagerImg={isEagerImg} />;
+        })
+      )
+    }
+  </section>
+</ListLayout>

@@ -1,58 +1,135 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogPostListItem from '../components/BlogPostListItem.astro';
+import { formatDate } from '../utils/date';
+import {
+  buildBreadcrumbSchema,
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+  toAbsoluteUrl,
+} from '../utils/seo';
+import {
+  getFeaturedPosts,
+  getPostPath,
+  getPostsOrderedByDate,
+} from '../services/posts';
+import { TOPIC_DEFINITIONS, getTopicDefinition } from '../utils/topics';
 
-import { getPostsOrderedByDate } from '../services/posts';
+const pageDescription =
+  'Historias sobre arte, referencias culturales en Disney y viajes con patrimonio. Un archivo para mirar el mundo con más contexto y curiosidad.';
 
 const posts = await getPostsOrderedByDate();
-const filteredPosts = posts.slice(0, 3);
+const featuredPosts = await getFeaturedPosts(1);
+const featuredPost = featuredPosts[0] ?? posts[0];
+const featuredSlug = featuredPost?.slug;
+const recentPosts = posts.filter((p) => p.slug !== featuredSlug).slice(0, 5);
+
+const homeStructuredData = [
+  buildWebSiteSchema({ description: pageDescription, url: toAbsoluteUrl('/') }),
+  buildOrganizationSchema(),
+  buildBreadcrumbSchema([{ name: 'Inicio', url: toAbsoluteUrl('/') }]),
+];
 ---
 
 <BaseLayout
   pageTitle="Para que veas el arte con otros ojos"
-  pageDescription="Espacio donde descubrimos secretos y curiosidades tras las obras de arte, curiosidades y objetos artísticos escondidos en las películas Disney y os hablo de mis viajes y de mis experiencias en visitas culturales. Proyecto con el objetivo de hacer el arte accesible a todos los públicos mediante un lenguaje comprensible."
+  pageDescription={pageDescription}
+  structuredData={homeStructuredData}
 >
-  <section
-    class="py-12 lg:py-32 gap-y-16 text-4xl max-w-md leading-tight font-serif [text-wrap]:[balance] tracking-tight text-pearl-900"
-  >
-    <h1 class="inline">La menina perdida</h1>
-    <p class="inline">
-      es mi proyecto personal. Para que veas el <span class="text-gold-700"
-        >arte</span
-      > con otros ojos
+  <!-- Masthead -->
+  <header class="border-b border-pearl-200 pt-4 pb-14 lg:pt-8 lg:pb-16">
+    <p class="text-[11px] uppercase tracking-[0.32em] text-gold-700">
+      La menina perdida
     </p>
-  </section>
-  <section class="flex flex-col w-full border-t py-6 gap-y-8">
-    <h2 class="text-2xl lg:text-3xl font-bold text-pearl-900">Últimos posts</h2>
-    <article class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      {
-        filteredPosts.map((post) => {
-          return <BlogPostListItem post={post} />;
-        })
-      }
-    </article>
-    <a
-      href="/posts"
-      title="Ver todos los posts"
-      class="rounded w-max transition-color duration-150 ease-in-out px-3 py-2 flex items-center gap-x-2 bg-pearl-900 text-white text-sm self-center hover:bg-opacity-90"
+    <h1
+      class="mt-4 font-serif text-4xl lg:text-6xl leading-[1.02] tracking-tighter font-normal text-pearl-900 max-w-2xl"
     >
-      <span>Ver todos los posts</span>
+      Para que veas el arte<br class="hidden sm:block" /> con otros ojos.
+    </h1>
+    <p class="mt-5 max-w-lg text-base text-pearl-700 leading-relaxed">
+      {pageDescription}
+    </p>
+  </header>
 
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-4 h-4"
+  <!-- Featured article -->
+  {
+    featuredPost && (
+      <section class="mt-14" aria-label="Artículo destacado">
+        <a
+          href={getPostPath(featuredPost)}
+          class="group grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:items-center"
+        >
+          <div class="overflow-hidden rounded-2xl">
+            <Image
+              src={featuredPost.data.imagen}
+              alt={featuredPost.data.title}
+              width={800}
+              height={600}
+              class="w-full object-cover aspect-[4/3] group-hover:scale-[1.015] transition-transform duration-500 ease-out"
+              loading="eager"
+            />
+          </div>
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.28em] text-gold-700">
+              {getTopicDefinition(featuredPost.data.topic).label}
+            </p>
+            <h2 class="mt-3 font-serif text-2xl lg:text-4xl leading-snug tracking-tight text-pearl-900 group-hover:underline">
+              {featuredPost.data.title}
+            </h2>
+            <p class="mt-3 text-base text-pearl-700 leading-relaxed">
+              {featuredPost.data.abstract}
+            </p>
+            <p class="mt-5 text-sm text-pearl-400">
+              {formatDate(featuredPost.data.fecha)}
+            </p>
+          </div>
+        </a>
+      </section>
+    )
+  }
+
+  <!-- Recent posts -->
+  <section class="mt-12" aria-label="Artículos recientes">
+    <h2 class="sr-only">Artículos recientes</h2>
+    <ol class="divide-y divide-pearl-200">
+      {
+        recentPosts.map((post) => (
+          <li class="py-5">
+            <a href={getPostPath(post)} class="group flex gap-5 items-start">
+              <div class="hidden sm:block shrink-0 w-24 overflow-hidden rounded-lg">
+                <Image
+                  src={post.data.imagen}
+                  alt=""
+                  width={192}
+                  height={144}
+                  class="w-full object-cover aspect-[4/3] group-hover:scale-[1.04] transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-gold-700">
+                  <span>{getTopicDefinition(post.data.topic).label}</span>
+                  <span class="text-pearl-300" aria-hidden="true">
+                    ·
+                  </span>
+                  <time>{formatDate(post.data.fecha)}</time>
+                </div>
+                <p class="mt-1 font-serif text-lg leading-snug text-pearl-900 group-hover:underline">
+                  {post.data.title}
+                </p>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="pt-4">
+      <a
+        href="/posts"
+        class="text-sm text-pearl-700 transition-colors duration-150 hover:text-pearl-900"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
-      </svg>
-    </a>
+        Ver el archivo completo →
+      </a>
+    </div>
   </section>
 </BaseLayout>
-
-<script></script>
