@@ -2,6 +2,7 @@
 import PostLayout from '../../layouts/PostLayout.astro';
 import PostImage from '../../components/PostImage.astro';
 import {
+  getLegacyPostSlugs,
   getPostPath,
   getPostSlug,
   getPostsOrderedByDate,
@@ -14,17 +15,7 @@ export async function getStaticPaths() {
 
   return entries.flatMap((entry) => {
     const canonicalSlug = getPostSlug(entry);
-
-    if (canonicalSlug === entry.slug) {
-      return [
-        {
-          params: {
-            slug: canonicalSlug,
-          },
-          props: { entry },
-        },
-      ];
-    }
+    const legacySlugs = getLegacyPostSlugs(entry);
 
     return [
       {
@@ -33,12 +24,12 @@ export async function getStaticPaths() {
         },
         props: { entry },
       },
-      {
+      ...legacySlugs.map((legacySlug) => ({
         params: {
-          slug: entry.slug,
+          slug: legacySlug,
         },
         props: { redirectTo: getPostPath(entry) },
-      },
+      })),
     ];
   });
 }

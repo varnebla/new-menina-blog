@@ -16,6 +16,7 @@ const { topic } = Astro.params;
 const currentTopic = getTopicDefinition(topic || 'arte');
 const filteredPosts = await getPostsByTopic(currentTopic.slug);
 const topicDescription = currentTopic.description;
+const seoDescription = currentTopic.seoDescription || topicDescription;
 const breadcrumbs = [
   { name: 'Inicio', url: toAbsoluteUrl('/') },
   { name: 'Posts', url: toAbsoluteUrl('/posts') },
@@ -27,7 +28,7 @@ const breadcrumbs = [
   title={`Archivo de ${currentTopic.label}`}
   topic={currentTopic.slug}
   eyebrow={currentTopic.kicker}
-  pageDescription={topicDescription}
+  pageDescription={seoDescription}
   breadcrumbs={breadcrumbs}
 >
   <section

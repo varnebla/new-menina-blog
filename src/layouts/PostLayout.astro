@@ -45,7 +45,9 @@ const {
 
 const formatedDate = formatDate(date);
 const topicDefinition = getTopicDefinition(topic);
-const canonicalUrl = canonical || toAbsoluteUrl(`/posts/${slug}`);
+const canonicalUrl = canonical
+  ? toAbsoluteUrl(canonical)
+  : toAbsoluteUrl(Astro.url.pathname);
 const fullImageUrl = toAbsoluteUrl(ogImage || imagen);
 const pageHeading = seoTitle || title;
 const structuredData = [
@@ -156,7 +158,7 @@ const structuredData = [
       sticky works because the ToC is in normal document flow.
     -->
     <div
-      class="xl:grid xl:grid-cols-[1fr_min(65ch,100%)_1fr] xl:gap-x-10 xl:items-start"
+      class="xl:grid xl:grid-cols-[1fr_min(60ch,100%)_1fr] xl:gap-x-10 xl:items-start"
     >
       <div class="hidden xl:block" aria-hidden="true"></div>
       <article

@@ -27,11 +27,21 @@ export function getPostSlug(post: Pick<PostEntry, 'slug'>) {
 }
 
 export function getPostPath(post: Pick<PostEntry, 'slug'>) {
-  return `/posts/${getPostSlug(post)}`;
+  return `/posts/${getPostSlug(post)}/`;
 }
 
-export function getLegacyPostPath(post: Pick<PostEntry, 'slug'>) {
-  return `/posts/${post.slug}`;
+function stripMarkdownExtension(value: string) {
+  return value.replace(/\.(md|mdx)$/i, '');
+}
+
+export function getLegacyPostSlugs(post: Pick<PostEntry, 'id' | 'slug'>) {
+  const legacySlug = stripMarkdownExtension(post.id);
+
+  if (!legacySlug || legacySlug === post.slug) {
+    return [];
+  }
+
+  return [legacySlug];
 }
 
 export async function getPostsOrderedByDate() {
