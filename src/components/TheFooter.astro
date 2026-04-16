@@ -13,14 +13,12 @@ import { TOPIC_DEFINITIONS } from '../utils/topics';
         La menina perdida
       </p>
       <p
-        class="font-serif text-2xl text-pearl-900 leading-tight tracking-tight"
+        class="font-serif text-2xl text-pearl-900 leading-tight tracking-tight text-balance"
       >
-        Un blog para mirar el arte, los viajes y la cultura visual con otros
-        ojos.
+        Un blog para mirar el arte con otros ojos.
       </p>
-      <p>
-        Artículos, curiosidades y recorridos para acercar el patrimonio a un
-        público amplio, sin perder rigor ni contexto.
+      <p class="text-balance">
+        Artículos para entender, disfrutar y sentir más cerca las obras de arte.
       </p>
     </div>
 
@@ -28,7 +26,7 @@ import { TOPIC_DEFINITIONS } from '../utils/topics';
       <p class="text-[11px] uppercase tracking-[0.28em] text-pearl-700">
         Explorar
       </p>
-      <nav class="flex flex-col gap-y-2">
+      <nav class="grid grid-cols-2 gap-x-4 gap-y-2">
         <a href="/posts" class="hover:text-pearl-900">Todos los posts</a>
         {
           TOPIC_DEFINITIONS.map((topic) => (

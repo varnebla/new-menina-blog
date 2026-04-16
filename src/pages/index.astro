@@ -16,7 +16,7 @@ import {
 import { TOPIC_DEFINITIONS, getTopicDefinition } from '../utils/topics';
 
 const pageDescription =
-  'Historias sobre arte, referencias culturales en Disney y viajes con patrimonio. Un archivo para mirar el mundo con más contexto y curiosidad.';
+  'Blog de historia del arte: símbolos, curiosidades e historias detrás de las obras para que las veas con otros ojos. Arte accesible para todos.';
 
 const posts = await getPostsOrderedByDate();
 const featuredPosts = await getFeaturedPosts(1);
@@ -39,7 +39,7 @@ const homeStructuredData = [
   <!-- Masthead -->
   <header class="border-b border-pearl-200 pt-4 pb-14 lg:pt-8 lg:pb-16">
     <p class="text-[11px] uppercase tracking-[0.32em] text-gold-700">
-      La menina perdida
+      Te doy la bienvenida a mi blog.
     </p>
     <h1
       class="mt-4 font-serif text-4xl lg:text-6xl leading-[1.02] tracking-tighter font-normal text-pearl-900 max-w-2xl"
@@ -47,7 +47,7 @@ const homeStructuredData = [
       Para que veas el arte<br class="hidden sm:block" /> con otros ojos.
     </h1>
     <p class="mt-5 max-w-lg text-base text-pearl-700 leading-relaxed">
-      {pageDescription}
+      Un espacio para hablar de arte como en un café entre amigas: con naturalidad, curiosidad y gusto por los buenos salseos. Historias, obsesiones, símbolos y detalles que cambiarán tu forma de mirar una obra.
     </p>
   </header>
 
